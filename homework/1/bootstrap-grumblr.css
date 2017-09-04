@@ -1,0 +1,24 @@
+body {
+  display: table;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+}
+.navbar-default .navbar-brand {
+  color : white;
+}
+.navbar-default .navbar-nav>li>a {
+  color: white;
+}
+.row-margin {
+  margin-top: auto;
+}
+.btn-default {
+  color: white;
+  background-color: #f4427d;
+}
+.form-group{
+
+
+    width:100%;
+}
