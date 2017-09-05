@@ -1,0 +1,10 @@
+Feedback from Promphorn Chaichirawiwat
+#Login page
+- Use the same term between Sign up / Register
+#Register page
+- Put password field near to username
+#Global stream
+- 42 characters or less
+- Date and time the post was written
+#Profile page
+- Do you need photo and name on profile page? Because it will be repetitive. It is only one user.
