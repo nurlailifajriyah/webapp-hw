@@ -2,7 +2,7 @@ body {
   display: table;
   position: absolute;
   height: 100%;
-  width: 100%;
+  width: 95%;
 }
 .navbar-default .navbar-brand {
   color : white;
@@ -17,8 +17,17 @@ body {
   color: white;
   background-color: #f4427d;
 }
+.btn-post {
+ margin-top: 7px;
+ margin-bottom: 7px;
+ padding-left: 30px;
+ padding-right: 30px;
+}
 .form-group{
-
-
-    width:100%;
+    width:95%;
+}
+.text-post{
+  margin-left: 10px;
+  margin-right: 10px;
+  width:95%;
 }
