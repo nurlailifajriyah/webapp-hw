@@ -38,3 +38,7 @@ body {
 .image-margin{
     margin: 5px 5px;
 }
+.date-font{
+    color: gray;
+    font-size: 11px;
+}

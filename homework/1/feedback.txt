@@ -8,3 +8,9 @@ Feedback from Promphorn Chaichirawiwat
 - Date and time the post was written
 #Profile page
 - Do you need photo and name on profile page? Because it will be repetitive. It is only one user.
+
+Feedback from Vivian Wang
+- The overall design is good.
+Additional suggestions for the implementation:
+- Add max length to the text area.
+- Menu dropdown, if it is hard to implement, can use a plain menu. 
