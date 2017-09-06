@@ -3,6 +3,7 @@ body {
   position: absolute;
   height: 100%;
   width: 95%;
+  min-width: 800px;
 }
 .navbar-default .navbar-brand {
   color : white;
@@ -30,4 +31,7 @@ body {
   margin-left: 10px;
   margin-right: 10px;
   width:95%;
+}
+.image-margin{
+    margin: 5px 5px;
 }
