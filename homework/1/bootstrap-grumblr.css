@@ -11,8 +11,11 @@ body {
 .navbar-default .navbar-nav>li>a {
   color: white;
 }
-.row-margin {
-  margin-top: auto;
+.logo-margin {
+  margin: auto;
+}
+.row-margin{
+    margin: auto;
 }
 .btn-default {
   color: white;
@@ -25,7 +28,7 @@ body {
  padding-right: 30px;
 }
 .form-group{
-    width:95%;
+    width:100%;
 }
 .text-post{
   margin-left: 10px;
