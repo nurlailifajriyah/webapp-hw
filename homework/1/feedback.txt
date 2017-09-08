@@ -14,3 +14,11 @@ Feedback from Vivian Wang
 Additional suggestions for the implementation:
 - Add max length to the text area.
 - Menu dropdown, if it is hard to implement, can use a plain menu. 
+
+Feedback from Nanda Firdaus
+- Put the number of love, comment and retweet in the button
+- Inconsistent words for sign in and log in
+Additional suggestions for the implementation:
+- Wrong placeholder for username and email address in register page
+- Logo in register page should redirect to login page
+- Better to redirect user to profile page when they click on profile picture

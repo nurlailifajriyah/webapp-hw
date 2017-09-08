@@ -1,68 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <!-- Bootstrap CSS -->
-  <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Customized CSS -->
-  <link href="bootstrap-grumblr.css" rel="stylesheet">
-  <link rel="shortcut icon" href="image/favicon.ico">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <!-- Bootstrap CSS -->
+    <link href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Customized CSS -->
+    <link href="bootstrap-grumblr.css" rel="stylesheet">
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="image/favicon.ico">
+    <!-- Bootstrap Javacript -->
+    <script src="bootstrap/js/jquery-3.2.1.js"></script>
     <script src="bootstrap/js/bootstrap.js"></script>
-  <title>grumblr</title>
+    <title>grumblr</title>
 </head>
 <body>
 <div class="container">
-    <div class = "row">
-      <div class="col-md-12 col-sm-12 col-xs-12" role="main">
-        <!--http://getbootstrap.com/docs/3.3/components/#navbar-->
-        <nav class="navbar navbar-default">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-              <a class="navbar-brand" href="globalstream.html">Grumblr</a>
-            </div>
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-              <ul class="nav navbar-nav navbar-right">
+    <!-- Header -->
+    <div class="row">
+        <div class="col-md-12 col-sm-12 col-xs-12" role="main">
+            <!--http://getbootstrap.com/docs/3.3/components/#navbar-->
+            <nav class="navbar navbar-default">
+                <div class="container-fluid">
+                    <!-- Brand and toggle get grouped for better mobile display -->
+                    <div class="navbar-header">
+                        <ul class="navbar-toggle collapsed" style="background-color: transparent;">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    <img src="image/stream-xs-profile-pict.png" class="img-responsive" alt="profpict">
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="profile.html">My Profile</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="loginpage.html">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
 
-                  <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
-              <img src="image/stream-xs-profile-pict.png" class="img-responsive" alt="profpict">
-          </a>
-          <ul class="dropdown-menu">
-            <li><a href="profile.html">My Profile</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="loginpage.html">Logout</a></li>
-          </ul>
-        </li>
-              </ul>
-            </div><!-- /.navbar-collapse -->
-        </nav>
-      </div> <!-- /.col-md-12 -->
+                        <a class="navbar-brand" href="globalstream.html">Grumblr</a>
+                    </div>
+                    <!-- Collect the nav links, forms, and other content for toggling -->
+                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                        <ul class="nav navbar-nav navbar-right">
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
+                                   aria-haspopup="true" aria-expanded="false">
+                                    <img src="image/stream-xs-profile-pict.png" class="img-responsive" alt="profpict">
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="profile.html">My Profile</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="loginpage.html">Logout</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div><!-- /.navbar-collapse -->
+                </div>
+            </nav>
+        </div> <!-- /.col-md-12 -->
     </div>
     <!--Text area-->
     <div class="row">
-      <div class="col-md-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12 well" style="padding-bottom:0">
-        <div class="col-md-2 col-sm-2 col-xs-2">
-          <img src="image/stream-grey-sm2-profile-pict.png" class="img-responsive" alt="profpict">
+        <div class="col-md-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12 well" style="padding-bottom:0">
+            <div class="col-md-2 col-sm-2 col-xs-2">
+                <img src="image/stream-grey-sm2-profile-pict.png" class="img-responsive" alt="profpict">
+            </div>
+            <div class="col-md-8 col-sm-8 col-xs-8">
+                <h3>Nurlaili Fajriyah</h3>
+                <h4>@nfajriya</h4>
+                <h6>Bio</h6>
+            </div>
         </div>
-        <div class="col-md-8 col-sm-8 col-xs-8">
-          <h3>Nurlaili Fajriyah</h3>
-          <h4>@nfajriya</h4>
-          <h6>Bio</h6>
-        </div>
-      </div>
     </div>
-      <!--One blog post-->
+    <!--One blog post-->
     <div class="row">
         <div class="col-md-offset-2 col-md-8 col-sm-12 col-xs-12 well" style="padding-bottom:0">
             <div class="col-md-2 col-sm-2 col-xs-2">
-                <img src="image/stream-grey-sm2-profile-pict.png" class="img-responsive" alt="profpict">
+                <a href="profile.html">
+                    <img src="image/stream-grey-sm2-profile-pict.png" class="img-responsive" alt="profpict">
+                </a>
             </div>
             <div class="col-md-9 col-sm-9 col-xs-9">
                 <div class="row">
                     <div class="panel panel-info col-md-12 col-sm-12 col-xs-12">
-                      <div class="panel-heading col-md-12 col-sm-12 col-xs-12"><a href="profile.html"><h5>Nurlaili Fajriyah</h5></a></div>
+                        <div class="panel-heading col-md-12 col-sm-12 col-xs-12"><a href="profile.html"><h5>Nurlaili
+                            Fajriyah</h5></a></div>
                         <div class="panel-body col-md-12 col-sm-12 col-xs-12">I'm using bootstrap now.
                         </div>
                     </div>
@@ -72,26 +94,29 @@
                 </div>
             </div>
             <div class="col-md-1 col-sm-1 col-xs-1">
-                <img src="image/love.png" class="image-margin" alt="reposticon"><br>
+                <img src="image/love.png" class="image-margin" alt="loveicon"><br><h6 class="likes-font">1</h6>
             </div>
             <div class="col-md-1 col-sm-1 col-xs-1">
-                <img src="image/comment.png" class="image-margin" alt="reposticon"><br>
+                <img src="image/comment.png" class="image-margin" alt="commenticon"><br><h6 class="likes-font">&nbsp</h6>
             </div>
             <div class="col-md-1 col-sm-1 col-xs-1">
-                <img src="image/repost.png" class="image-margin" alt="reposticon"><br>
+                <img src="image/repost.png" class="image-margin" alt="reposticon"><br><h6 class="likes-font">&nbsp</h6>
             </div>
         </div>
     </div>
-      <!--One blog post-->
-      <div class="row">
+    <!--One blog post-->
+    <div class="row">
         <div class="col-md-offset-2 col-md-8 col-sm-12 col-xs-12 well" style="padding-bottom:0">
             <div class="col-md-2 col-sm-2 col-xs-2">
-                <img src="image/stream-grey-sm2-profile-pict.png" class="img-responsive" alt="profpict">
+                <a href="profile.html">
+                    <img src="image/stream-grey-sm2-profile-pict.png" class="img-responsive" alt="profpict">
+                </a>
             </div>
             <div class="col-md-9 col-sm-9 col-xs-9">
                 <div class="row">
                     <div class="panel panel-info col-md-12 col-sm-12 col-xs-12">
-                      <div class="panel-heading col-md-12 col-sm-12 col-xs-12"><a href="profile.html"><h5>Nurlaili Fajriyah</h5></a></div>
+                        <div class="panel-heading col-md-12 col-sm-12 col-xs-12"><a href="profile.html"><h5>Nurlaili
+                            Fajriyah</h5></a></div>
                         <div class="panel-body col-md-12 col-sm-12 col-xs-12">Hi, this is my first assignment!
                         </div>
                     </div>
@@ -101,26 +126,29 @@
                 </div>
             </div>
             <div class="col-md-1 col-sm-1 col-xs-1">
-                <img src="image/love.png" class="image-margin" alt="reposticon"><br>
+                <img src="image/love.png" class="image-margin" alt="loveicon"><br><h6 class="likes-font">3</h6>
             </div>
             <div class="col-md-1 col-sm-1 col-xs-1">
-                <img src="image/comment.png" class="image-margin" alt="reposticon"><br>
+                <img src="image/comment.png" class="image-margin" alt="commenticon"><br><h6 class="likes-font">1</h6>
             </div>
             <div class="col-md-1 col-sm-1 col-xs-1">
-                <img src="image/repost.png" class="image-margin" alt="reposticon"><br>
+                <img src="image/repost.png" class="image-margin" alt="reposticon"><br><h6 class="likes-font">&nbsp</h6>
             </div>
         </div>
     </div>
-      <!--One blog post-->
-        <div class="row">
+    <!--One blog post-->
+    <div class="row">
         <div class="col-md-offset-2 col-md-8 col-sm-12 col-xs-12 well" style="padding-bottom:0">
             <div class="col-md-2 col-sm-2 col-xs-2">
-                <img src="image/stream-grey-sm2-profile-pict.png" class="img-responsive" alt="profpict">
+                <a href="profile.html">
+                    <img src="image/stream-grey-sm2-profile-pict.png" class="img-responsive" alt="profpict">
+                </a>
             </div>
             <div class="col-md-9 col-sm-9 col-xs-9">
                 <div class="row">
                     <div class="panel panel-info col-md-12 col-sm-12 col-xs-12">
-                      <div class="panel-heading col-md-12 col-sm-12 col-xs-12"><a href="profile.html"><h5>Nurlaili Fajriyah</h5></a></div>
+                        <div class="panel-heading col-md-12 col-sm-12 col-xs-12"><a href="profile.html"><h5>Nurlaili
+                            Fajriyah</h5></a></div>
                         <div class="panel-body col-md-12 col-sm-12 col-xs-12">Hello, world!
                         </div>
                     </div>
@@ -130,17 +158,17 @@
                 </div>
             </div>
             <div class="col-md-1 col-sm-1 col-xs-1">
-                <img src="image/love.png" class="image-margin" alt="reposticon"><br>
+                <img src="image/love.png" class="image-margin" alt="loveicon"><br><h6 class="likes-font">4</h6>
             </div>
             <div class="col-md-1 col-sm-1 col-xs-1">
-                <img src="image/comment.png" class="image-margin" alt="reposticon"><br>
+                <img src="image/comment.png" class="image-margin" alt="commenticon"><br><h6 class="likes-font">2</h6>
             </div>
             <div class="col-md-1 col-sm-1 col-xs-1">
-                <img src="image/repost.png" class="image-margin" alt="reposticon"><br>
+                <img src="image/repost.png" class="image-margin" alt="reposticon"><br><h6 class="likes-font">1</h6>
             </div>
         </div>
     </div>
-  </div>
+</div>
 
 
 </body>

@@ -36,9 +36,30 @@ body {
   width:95%;
 }
 .image-margin{
-    margin: 5px 5px;
+    margin-top: 5px;
 }
 .date-font{
     color: gray;
     font-size: 11px;
+}
+.likes-font{
+    color: #b1b3b5;
+    font-size: 11px;
+    margin: 0;
+    text-align: center;
+}
+ul.navbar-toggle{
+    border: 0px;
+}
+
+ul.navbar-toggle:hover{
+    background-color: transparent;
+}
+
+ul.navbar-toggle:focus{
+    background-color: transparent;
+}
+
+ul.navbar-toggle{
+    list-style: none;
 }
