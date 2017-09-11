@@ -6,34 +6,42 @@
     <title>Calculator</title>
 </head>
 <body>
+
 <div class="container">
+
     <div class="result">
+        {% if number_value %}
+        {{number_value}}
+        {% endif %}
 
     </div>
-    <div class="first-row">
-        <button class="number" value="7">7</button>
-        <button class="number" value="8">8</button>
-        <button class="number" value="9">9</button>
-        <button class="otherbutton" value="+">+</button>
-    </div>
-    <div class="second-row">
-        <button class="number" value="4">4</button>
-        <button class="number" value="5">5</button>
-        <button class="number" value="6">6</button>
-        <button class="otherbutton" value="-">-</button>
-    </div>
-     <div class="third-row">
-         <button class="number" value="1">1</button>
-        <button class="number" value="2">2</button>
-        <button class="number" value="3">3</button>
-        <button class="otherbutton" value="x">x</button>
-    </div>
-    <div class="third-row">
-        <button class="zero" value="0">0</button>
-        <button class="otherbutton" value="=">=</button>
-        <button class="otherbutton" value="/">/</button>
-    </div>
+    <form action="/calculator/" method="get">
 
+        <div class="first-row">
+            <button class="number" name="number" type="submit" value=">7</button>
+            <button class="number" name="number" type="submit" value="8">8</button>
+            <button class="number" name="number" type="submit" value="9">9</button>
+            <button class="otherbutton" type="submit" value="+">+</button>
+        </div>
+        <div class="second-row">
+            <button class="number" name="number" type="submit" value="4">4</button>
+            <button class="number" name="number" type="submit" value="5">5</button>
+            <button class="number" name="number" type="submit" value="6">6</button>
+            <button class="otherbutton" type="submit" value="-">-</button>
+        </div>
+        <div class="third-row">
+            <button class="number" name="number" type="submit" value="1">1</button>
+            <button class="number" name="number" type="submit" value="2">2</button>
+            <button class="number" name="number" type="submit" value="3">3</button>
+            <button class="otherbutton" type="submit" value="x">x</button>
+        </div>
+        <div class="third-row">
+            <button class="zero" name="number" type="submit" value="0">0</button>
+            <button class="otherbutton" type="submit" value="=">=</button>
+            <button class="otherbutton" type="submit" value="/">/</button>
+        </div>
+        {% csrf_token %}
+    </form>
 </div>
 
 </body>
