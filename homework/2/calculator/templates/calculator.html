@@ -10,36 +10,39 @@
 <div class="container">
 
     <div class="result">
-        {% if number_value %}
-        {{number_value}}
+        {% if result %}
+        {{result}}
         {% endif %}
 
     </div>
     <form action="/calculator/" method="get">
 
         <div class="first-row">
-            <button class="number" name="number" type="submit" value="{% if number_value %}{{number_value}}{% endif %}7">7</button>
-            <button class="number" name="number" type="submit" value="{% if number_value %}{{number_value}}{% endif %}8">8</button>
-            <button class="number" name="number" type="submit" value="{% if number_value %}{{number_value}}{% endif %}9">9</button>
-            <button class="otherbutton" type="submit" value="+">+</button>
+            <button class="number" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}7">7</button>
+            <button class="number" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}8">8</button>
+            <button class="number" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}9">9</button>
+            <button class="otherbutton" name="operatorinput" type="submit" value="+">+</button>
         </div>
         <div class="second-row">
-            <button class="number" name="number" type="submit" value="{% if number_value %}{{number_value}}{% endif %}4">4</button>
-            <button class="number" name="number" type="submit" value="{% if number_value %}{{number_value}}{% endif %}5">5</button>
-            <button class="number" name="number" type="submit" value="{% if number_value %}{{number_value}}{% endif %}6">6</button>
-            <button class="otherbutton" type="submit" value="-">-</button>
+            <button class="number" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}4">4</button>
+            <button class="number" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}5">5</button>
+            <button class="number" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}6">6</button>
+            <button class="otherbutton" name="operatorinput" type="submit" value="-">-</button>
         </div>
         <div class="third-row">
-            <button class="number" name="number" type="submit" value="{% if number_value %}{{number_value}}{% endif %}1">1</button>
-            <button class="number" name="number" type="submit" value="{% if number_value %}{{number_value}}{% endif %}2">2</button>
-            <button class="number" name="number" type="submit" value="{% if number_value %}{{number_value}}{% endif %}3">3</button>
-            <button class="otherbutton" type="submit" value="x">x</button>
+            <button class="number" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}1">1</button>
+            <button class="number" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}2">2</button>
+            <button class="number" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}3">3</button>
+            <button class="otherbutton" name="operatorinput" type="submit" value="x">x</button>
         </div>
         <div class="third-row">
-            <button class="zero" name="number" type="submit" value="{% if number_value %}{{number_value}}{% endif %}0">0</button>
-            <button class="otherbutton" type="submit" value="=">=</button>
-            <button class="otherbutton" type="submit" value="/">/</button>
+            <button class="zero" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}0">0</button>
+            <button class="otherbutton" name="operatorinput" type="submit" value="=">=</button>
+            <button class="otherbutton" name="operatorinput" type="submit" value="/">/</button>
         </div>
+        <input type="hidden" name="num1" value="{{num1}}">
+        <input type="hidden" name="num2" value="{{num2}}">
+        <input type="hidden" name="operator" value="{{operator}}">
         {% csrf_token %}
     </form>
 </div>
