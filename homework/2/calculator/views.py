@@ -8,13 +8,13 @@ def calculate(request):
     context['num1'] = ''
     context['num2'] = ''
     # Retrieves then name from the request if the 'username' HTTP GET parameter is present.
-    if 'operator' in request.GET and request.GET['operator'] != '':
-        context['operator'] = request.GET['operator']
-    if 'num1' in request.GET and request.GET['num1'] != '':
-        context['num1'] = int(request.GET['num1'])
-    if 'num2' in request.GET and request.GET['num2'] != '':
-        context['num2'] = int(request.GET['num2'])
-    if 'operatorinput' in request.GET and request.GET['operatorinput'] != '':
+    if 'operator' in request.POST and request.POST['operator'] != '':
+        context['operator'] = request.POST['operator']
+    if 'num1' in request.POST and request.POST['num1'] != '':
+        context['num1'] = int(request.POST['num1'])
+    if 'num2' in request.POST and request.POST['num2'] != '':
+        context['num2'] = int(request.POST['num2'])
+    if 'operatorinput' in request.POST and request.POST['operatorinput'] != '':
         if context['num2'] != '':
             if context['operator'] == '+':
                 context['result'] = context['num1'] + context['num2']
@@ -29,34 +29,44 @@ def calculate(request):
                     context['result'] = context['num1'] / context['num2']
             if context['result'] == "error":
                 context['num2'] = ''
-            elif request.GET['operatorinput'] == "=":
+            elif request.POST['operatorinput'] == "=":
                 context['num1'] = context['result']
                 context['num2'] = ''
                 context['operator'] = ''
             else:
                 context['num1'] = context['result']
                 context['num2'] = ''
-                context['operator'] = request.GET['operatorinput']
+                context['operator'] = request.POST['operatorinput']
         else:
             context['result'] = context['num1']
             context['num2'] = ''
-            if request.GET['operatorinput'] == "=":
-                context['num1'] = ''
-                context['operator'] = ''
+            if context['num1'] == '':
+                context['result'] = 0;
+                context['num1'] = context['result']
+                context['num2'] = ''
+                context['operator'] = request.POST['operatorinput']
             else:
-                context['operator'] = request.GET['operatorinput']
-    elif 'numberinput' in request.GET:
-        if context['num2']:
-            context['num2'] = int(request.GET['numberinput'])
+                if context['operator'] != '':
+                    context['operator'] = request.POST['operatorinput']
+                else:
+                    if request.POST['operatorinput'] == "=":
+                        context['num1'] = context['result']
+                        context['num2'] = ''
+                        context['operator'] = ''
+                    else:
+                        context['operator'] = request.POST['operatorinput']
+    elif 'numberinput' in request.POST:
+        if context['num2'] != '':
+            context['num2'] = int(request.POST['numberinput'])
             context['result'] = context['num2']
-        elif context['num1']:
+        elif context['num1'] != '':
             if context['operator'] != '':
-                context['num2'] = request.GET['numberinput']
+                context['num2'] = request.POST['numberinput']
                 context['result'] = context['num2']
             else:
-                context['num1'] = int(request.GET['numberinput'])
+                context['num1'] = int(request.POST['numberinput'])
                 context['result'] = context['num1']
         else:
-            context['num1'] = int(request.GET['numberinput'])
+            context['num1'] = int(request.POST['numberinput'])
             context['result'] = context['num1']
     return render(request, 'calculator.html', context)

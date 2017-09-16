@@ -17,28 +17,28 @@
         {% endif %}
 
     </div>
-    <form action="/calculator/" method="get">
+    <form action="/calculator/" method="post">
 
         <div class="first-row">
-            <button class="number" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}7">7</button>
-            <button class="number" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}8">8</button>
-            <button class="number" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}9">9</button>
+            <button class="number" name="numberinput" type="submit" value="{% if num2 != '' and num2 != '0' %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}7">7</button>
+            <button class="number" name="numberinput" type="submit" value="{% if num2 != '' and num2 != '0' %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}8">8</button>
+            <button class="number" name="numberinput" type="submit" value="{% if num2 != '' and num2 != '0' %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}9">9</button>
             <button class="otherbutton" name="operatorinput" type="submit" value="+">+</button>
         </div>
         <div class="second-row">
-            <button class="number" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}4">4</button>
-            <button class="number" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}5">5</button>
-            <button class="number" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}6">6</button>
+            <button class="number" name="numberinput" type="submit" value="{% if num2 != '' and num2 != '0' %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}4">4</button>
+            <button class="number" name="numberinput" type="submit" value="{% if num2 != '' and num2 != '0' %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}5">5</button>
+            <button class="number" name="numberinput" type="submit" value="{% if num2 != '' and num2 != '0' %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}6">6</button>
             <button class="otherbutton" name="operatorinput" type="submit" value="-">-</button>
         </div>
         <div class="third-row">
-            <button class="number" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}1">1</button>
-            <button class="number" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}2">2</button>
-            <button class="number" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}3">3</button>
+            <button class="number" name="numberinput" type="submit" value="{% if num2 != '' and num2 != '0' %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}1">1</button>
+            <button class="number" name="numberinput" type="submit" value="{% if num2 != '' and num2 != '0' %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}2">2</button>
+            <button class="number" name="numberinput" type="submit" value="{% if num2 != '' and num2 != '0' %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}3">3</button>
             <button class="otherbutton" name="operatorinput" type="submit" value="x">x</button>
         </div>
         <div class="third-row">
-            <button class="zero" name="numberinput" type="submit" value="{% if num2 != 0 %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}0">0</button>
+            <button class="zero" name="numberinput" type="submit" value="{% if num2 != '' and num2 != '0' %}{{num2}}{% elif operator == '' %}{{num1}}{% endif %}0">0</button>
             <button class="otherbutton" name="operatorinput" type="submit" value="=">=</button>
             <button class="otherbutton" name="operatorinput" type="submit" value="/">/</button>
         </div>
