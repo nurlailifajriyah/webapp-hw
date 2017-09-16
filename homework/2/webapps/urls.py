@@ -20,5 +20,6 @@ import calculator.views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'', calculator.views.calculate),
     url(r'^calculator/', calculator.views.calculate),
 ]
