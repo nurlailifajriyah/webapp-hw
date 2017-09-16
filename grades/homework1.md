@@ -4,9 +4,7 @@ Homework 1 Feedback
 Commit graded: 39277fce0ba706e453914dfefd7bdfe4a8443616
 
 
-### Grumblr design process (0/10)
--10, You are missing evidence of a design process (wireframes and feedback) for your design.
-You should have developed mock web pages as your design. That's what we mean by wireframes, not flow charts.
+### Grumblr design process (10/10)
 
 ### Demonstrates basic familiarity with HTML and CSS
 
@@ -22,7 +20,7 @@ You should have developed mock web pages as your design. That's what we mean by 
 
 ---
 
-#### Total score (37/50)
+#### Total score (47/50)
 
 ---
 
