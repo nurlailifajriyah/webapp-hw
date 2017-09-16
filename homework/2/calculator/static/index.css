@@ -35,6 +35,9 @@
     font-size:20px;
     color: #2a383f;
 }
+.number:hover{
+    background-color: #f291a6;
+}
 .zero{
     width:150px;
     height:70px;
@@ -44,7 +47,9 @@
     font-size:20px;
     color: #2a383f;
 }
-
+.zero:hover{
+    background-color: #5aacf4;
+}
 .otherbutton{
     width:70px;
     height:70px;
@@ -54,4 +59,7 @@
     background-color: #b6e3f9;
     font-size:20px;
     color: #2a383f;
+}
+.otherbutton:hover{
+    background-color: #5aacf4;
 }
