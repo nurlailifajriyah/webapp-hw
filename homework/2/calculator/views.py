@@ -44,12 +44,11 @@ def calculate(request):
                         context['result'] = context['num1'] / context['num2']
                 else:
                     context['result'] = 'error'
-                    context['operator'] = ''
-                    context['num1'] = ''
-                    context['num2'] = ''
-                    return render(request, 'calculator.html', context)
                 if context['result'] == "error":
                     context['num2'] = ''
+                    context['operator'] = ''
+                    context['num1'] = ''
+                    return render(request, 'calculator.html', context)
                 else:
                     context['num1'] = context['result']
                     context['num2'] = ''
