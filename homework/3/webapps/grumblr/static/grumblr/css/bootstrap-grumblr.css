@@ -1,0 +1,65 @@
+body {
+  display: table;
+  position: absolute;
+  height: 100%;
+  width: 95%;
+  min-width: 800px;
+}
+.navbar-default .navbar-brand {
+  color : white;
+}
+.navbar-default .navbar-nav>li>a {
+  color: white;
+}
+.logo-margin {
+  margin: auto;
+}
+.row-margin{
+    margin: auto;
+}
+.btn-default {
+  color: white;
+  background-color: #f4427d;
+}
+.btn-post {
+ margin-top: 7px;
+ margin-bottom: 7px;
+ padding-left: 30px;
+ padding-right: 30px;
+}
+.form-group{
+    width:100%;
+}
+.text-post{
+  margin-left: 10px;
+  margin-right: 10px;
+  width:95%;
+}
+.image-margin{
+    margin-top: 5px;
+}
+.date-font{
+    color: gray;
+    font-size: 11px;
+}
+.likes-font{
+    color: #b1b3b5;
+    font-size: 11px;
+    margin: 0;
+    text-align: center;
+}
+ul.navbar-toggle{
+    border: 0px;
+}
+
+ul.navbar-toggle:hover{
+    background-color: transparent;
+}
+
+ul.navbar-toggle:focus{
+    background-color: transparent;
+}
+
+ul.navbar-toggle{
+    list-style: none;
+}
