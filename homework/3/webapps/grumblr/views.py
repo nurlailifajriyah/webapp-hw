@@ -9,15 +9,16 @@ from django.shortcuts import render, redirect
 from grumblr.models import *
 
 # Create your views here.
-def profile(request):
+def profile(request, username):
     # Gets a list of all the items in the todo-list database.
-    items = BlogPost.objects.filter(user_id=request.user)
+    user = User.objects.get(username=username)
+    items = BlogPost.objects.filter(user_id=user)
 
     # render takes: (1) the request,
     #               (2) the name of the view to generate, and
     #               (3) a dictionary of name-value pairs of data to be
     #                   available to the view.
-    return render(request, 'grumblr/profile.html', {'items':items})
+    return render(request, 'grumblr/profile.html', {'items':items, 'user':user})
 
 def globalstream(request):
     # Gets a list of all the items in the todo-list database.

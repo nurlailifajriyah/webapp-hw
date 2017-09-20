@@ -28,7 +28,7 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                    aria-haspopup="true" aria-expanded="false">
-                                    <img src="image/stream-xs-profile-pict.png" class="img-responsive" alt="profpict">
+                                    <img src="{% static 'grumblr/images/profpict.png' %}" class="img-responsive" alt="profpict">
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="profile.html">My Profile</a></li>
@@ -60,15 +60,15 @@
             </nav>
         </div> <!-- /.col-md-12 -->
     </div>
-    <!--Text area-->
+    <!--Profile Header-->
     <div class="row">
         <div class="col-md-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12 well" style="padding-bottom:0">
             <div class="col-md-2 col-sm-2 col-xs-2">
-                <img src="image/stream-grey-sm2-profile-pict.png" class="img-responsive" alt="profpict">
+                <img src="{% static 'grumblr/images/profpict2.png' %}" class="img-responsive" alt="profpict">
             </div>
             <div class="col-md-8 col-sm-8 col-xs-8">
-                <h3>Nurlaili Fajriyah</h3>
-                <h4>{{request.user.first_name}} {{request.user.first_name}}</h4>
+                <h3>{{user.first_name}} {{user.first_name}}</h3>
+                <h4>{{user.username}}</h4>
                 <h6>Bio</h6>
             </div>
         </div>
@@ -92,7 +92,7 @@
                     </div>
                 </div>
                 <div class="row">
-                    <p class="date-font">Wed, Sept 6, 2017 - 1:55 PM </p>
+                    <p class="date-font">{{item.published_time}}</p>
                 </div>
             </div>
             <div class="col-md-1 col-sm-1 col-xs-1">

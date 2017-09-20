@@ -24,7 +24,7 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^globalstream$',grumblr.views.globalstream),
     url(r'^add-item',grumblr.views.add_item),
-    url(r'^profile',grumblr.views.profile),
+    url(r'^profile/(?P<username>\w+)$',grumblr.views.profile),
     # route to auth
     url(r'^login$', login, {'template_name': 'grumblr/loginpage.html'}, name='login'),
     # route to logout
