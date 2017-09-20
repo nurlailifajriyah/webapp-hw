@@ -2,11 +2,31 @@
 
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
+from django.core.exceptions import ObjectDoesNotExist
 
+from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 from grumblr.models import *
 
 # Create your views here.
+
+@login_required
+# Action for the shared-todo-list/add-item route.
+def add_item(request):
+    errors = []  # A list to record messages for any errors we encounter.
+
+    # Adds the new item to the database if the request parameter is present
+    if not 'item' in request.POST or not request.POST['item']:
+        errors.append('You must enter an item to add.')
+    else:
+        new_item = BlogPost(blog_text=request.POST['item'], user_id=request.user)
+        new_item.save()
+
+    # Sets up data needed to generate the view, and generates the view
+    items = BlogPost.objects.filter(user_id=request.user)
+    context = {'items':items, 'errors':errors}
+    return render(request, 'grumblr/globalstream.html', context)
+
 def register(request):
     context = {}
 
@@ -19,6 +39,16 @@ def register(request):
         errors.append('Username is required.')
     else:
         context['username'] = request.POST['username']
+
+    if not 'firstname' in request.POST or not request.POST['username']:
+        errors.append('First name is required.')
+    else:
+        context['firstname'] = request.POST['lastname']
+
+    if not 'lastname' in request.POST or not request.POST['username']:
+        errors.append('Last name is required.')
+    else:
+        context['lastname'] = request.POST['lastname']
 
     if not 'password1' in request.POST or not request.POST['password1']:
         errors.append('Password is required.')
@@ -36,7 +66,8 @@ def register(request):
     if errors:
         return render(request, 'grumblr/register.html', context)
 
-    new_user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'])
+    new_user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'], \
+                                        first_name=request.POST['firstname'], last_name=request.POST['lastname'])
     new_user.save()
 
     new_user = authenticate(username=request.POST['username'], password=request.POST['password1'])
