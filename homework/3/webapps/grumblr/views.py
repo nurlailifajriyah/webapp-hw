@@ -9,6 +9,15 @@ from django.shortcuts import render, redirect
 from grumblr.models import *
 
 # Create your views here.
+def globalstream(request):
+    # Gets a list of all the items in the todo-list database.
+    items = BlogPost.objects.all
+
+    # render takes: (1) the request,
+    #               (2) the name of the view to generate, and
+    #               (3) a dictionary of name-value pairs of data to be
+    #                   available to the view.
+    return render(request, 'grumblr/globalstream.html', {'items':items})
 
 @login_required
 # Action for the shared-todo-list/add-item route.
@@ -23,7 +32,7 @@ def add_item(request):
         new_item.save()
 
     # Sets up data needed to generate the view, and generates the view
-    items = BlogPost.objects.filter(user_id=request.user)
+    items = BlogPost.objects.all
     context = {'items':items, 'errors':errors}
     return render(request, 'grumblr/globalstream.html', context)
 

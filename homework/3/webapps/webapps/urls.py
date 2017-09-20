@@ -22,6 +22,8 @@ import grumblr.views
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    url(r'^globalstream$',grumblr.views.globalstream),
+    url(r'^add-item',grumblr.views.add_item),
     # route to auth
     url(r'^login$', login, {'template_name': 'grumblr/loginpage.html'}, name='login'),
     # route to logout
