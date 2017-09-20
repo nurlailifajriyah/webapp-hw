@@ -13,15 +13,19 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.auth.views import login, logout_then_login
 
 import grumblr.views
 
 
-    urlpatterns = [
+urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    url(r'', grumblr.views.grumblr),
-    url(r'^grumblr/', grumblr.views.grumblr),
+    # route to auth
+    url(r'^login$', login, {'template_name': 'grumblr/loginpage.html'}, name='login'),
+    # route to logout
+    url(r'^logout$', logout_then_login),
+    url(r'^register$', grumblr.views.register),
 ]
 

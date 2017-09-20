@@ -37,8 +37,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'grumblr'
+    'grumblr',
 ]
+
+LOGIN_URL = '/login'
+
+LOGIN_REDIRECT_URL = '/globalstream'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
