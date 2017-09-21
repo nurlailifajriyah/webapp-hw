@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="{% static 'grumblr/images/favicon.ico' %}">
     <!-- Bootstrap Javascript -->
     <script src="{% static 'grumblr/js/jquery-3.2.1.js' %}"></script>
-    <script src="{% static 'grumblr/js/bootstrap.js' %}"></script>
+    <script src="{% static 'grumblr/js/bootstrap.min.js' %}"></script>
     <title>grumblr</title>
 </head>
 <body>
@@ -28,18 +28,18 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                    aria-haspopup="true" aria-expanded="false">
-                                    <img src="{% static 'grumblr/images/stream-xs-profile-pict.png' %}"
+                                    <img src="{% static 'grumblr/images/profpict.png' %}"
                                          class="img-responsive" alt="profpict">
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="profile.html">My Profile</a></li>
+                                    <li><a href="profile/{{request.user}}">My Profile</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="loginpage.html">Logout</a></li>
+                                    <li><a href="login">Logout</a></li>
                                 </ul>
                             </li>
                         </ul>
 
-                        <a class="navbar-brand" href="globalstream.html">Grumblr</a>
+                        <a class="navbar-brand" href="globalstream">Grumblr</a>
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -51,9 +51,9 @@
                                          alt="profpict">
                                 </a>
                                 <ul class="dropdown-menu">
-                                    <li><a href="profile.html">My Profile</a></li>
+                                    <li><a href="profile/{{request.user}}">My Profile</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="loginpage.html">Logout</a></li>
+                                    <li><a href="login">Logout</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -65,7 +65,7 @@
     <!--Text area-->
     <div class="row">
         <div class="col-md-offset-2 col-md-8 col-md-offset-2 well" style="padding-bottom:0">
-            <form accept-charset="UTF-8" action="/globalstream" method="POST">
+            <form accept-charset="UTF-8" action="/add-item" method="POST">
                 <div class="row">
             <textarea class="col-md-offset-1 col-md-11 text-post" id="new_message" name="item"
                       placeholder="What's on your mind?" rows="5" maxlength="42"> </textarea>
@@ -84,7 +84,7 @@
     <div class="row">
         <div class="col-md-offset-2 col-md-8 col-sm-12  col-xs-12 well" style="padding-bottom:0">
             <div class="col-md-2 col-sm-2 col-xs-2">
-                <a href="/profile">
+                <a href="/profile/{{item.user_id}}">
                     <img src="{% static 'grumblr/images/profpict2.png' %}" class="img-responsive"
                          alt="profpict">
                 </a>
@@ -92,24 +92,14 @@
             <div class="col-md-9 col-sm-9 col-xs-9">
                 <div class="row">
                     <div class="panel panel-info col-md-12 col-sm-12 col-xs-12">
-                        <div class="panel-heading col-md-12 col-sm-12 col-xs-12"><a href="/profile"><h5>{{item.user_id}}</h5></a></div>
+                        <div class="panel-heading col-md-12 col-sm-12 col-xs-12"><a href="/profile/{{item.user_id}}"><h5>{{item.user_id}}</h5></a></div>
                         <div class="panel-body col-md-12 col-sm-12 col-xs-12">{{item}}
                         </div>
                     </div>
                 </div>
                 <div class="row">
-                    <p class="date-font">Wed, Sept 6, 2017 - 1:55 PM </p>
+                    <p class="date-font">{{item.published_time}}</p>
                 </div>
-            </div>
-            <div class="col-md-1 col-sm-1 col-xs-1">
-                <img src="{% static 'grumblr/images/love.png' %}" class="image-margin" alt="loveicon"><h6 class="likes-font">2.3K</h6>
-            </div>
-            <div class="col-md-1 col-sm-1 col-xs-1">
-                <img src="{% static 'grumblr/images/comment.png' %}" class="image-margin" alt="commenticon"><h6
-                    class="likes-font">334</h6>
-            </div>
-            <div class="col-md-1 col-sm-1 col-xs-1">
-                <img src="{% static 'grumblr/images/repost.png' %}" class="image-margin" alt="reposticon"><h6 class="likes-font">102</h6>
             </div>
 
         </div>
