@@ -42,7 +42,7 @@ def add_item(request):
         new_item.save()
 
     # Sets up data needed to generate the view, and generates the view
-    items = BlogPost.objects.all.order_by('-published_time')
+    items = BlogPost.objects.order_by('-published_time')
     context = {'items':items, 'errors':errors}
     return render(request, 'grumblr/globalstream.html', context)
 
