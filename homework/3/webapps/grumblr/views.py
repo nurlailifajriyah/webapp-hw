@@ -98,4 +98,4 @@ def register(request):
 
     new_user = authenticate(username=request.POST['username'], password=request.POST['password1'])
     login(request, new_user)
-    return redirect('/login')
+    return redirect('/globalstream')

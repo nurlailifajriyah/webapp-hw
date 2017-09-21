@@ -33,7 +33,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="{{request.user}}">My Profile</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="logout">Logout</a></li>
+                                    <li><a href="/logout">Logout</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -51,7 +51,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a href="{{request.user}}">My Profile</a></li>
                                     <li role="separator" class="divider"></li>
-                                    <li><a href="logout">Logout</a></li>
+                                    <li><a href="/logout">Logout</a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -67,7 +67,7 @@
                 <img src="{% static 'grumblr/images/profpict2.png' %}" class="img-responsive" alt="profpict">
             </div>
             <div class="col-md-8 col-sm-8 col-xs-8">
-                <h3>{{user.first_name}} {{user.first_name}}</h3>
+                <h3>{{user.first_name}} {{user.last_name}}</h3>
                 <h4>@{{user.username}}</h4>
                 <h6>Bio</h6>
             </div>
