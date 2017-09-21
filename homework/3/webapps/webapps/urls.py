@@ -21,6 +21,7 @@ import grumblr.views
 
 
 urlpatterns = [
+    url(r'^$', grumblr.views.home),
     url(r'^admin/', admin.site.urls),
     url(r'^globalstream$',grumblr.views.globalstream),
     url(r'^add-item',grumblr.views.add_item),

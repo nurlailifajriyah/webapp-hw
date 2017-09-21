@@ -7,6 +7,13 @@ from django.shortcuts import render, redirect
 from grumblr.models import *
 
 # Create your views here.
+def home(request):
+    # Gets a list of all the items in the todo-list database.
+    if request.user.is_authenticated():
+        return redirect('/globalstream')
+    else:
+        return redirect('/login')
+
 @login_required
 def profile(request, username):
     # Gets a list of all the items in the todo-list database.
