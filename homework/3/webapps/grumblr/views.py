@@ -7,6 +7,7 @@ from django.shortcuts import render, redirect
 from grumblr.models import *
 
 # Create your views here.
+@login_required
 def profile(request, username):
     # Gets a list of all the items in the todo-list database.
     user = User.objects.get(username=username)
@@ -17,7 +18,7 @@ def profile(request, username):
     #               (3) a dictionary of name-value pairs of data to be
     #                   available to the view.
     return render(request, 'grumblr/profile.html', {'items':items, 'user':user})
-
+@login_required
 def globalstream(request):
     # Gets a list of all the items in the todo-list database.
     items = BlogPost.objects.all
