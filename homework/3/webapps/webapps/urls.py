@@ -32,4 +32,5 @@ urlpatterns = [
     url(r'^logout$', logout_then_login),
     url(r'^register$', grumblr.views.register),
 ]
-
+handler404 = 'grumblr.views.nofoundpage'
+handler500 = 'grumblr.views.nofoundpage'

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-
+from django.core.exceptions import ObjectDoesNotExist
 from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.decorators import login_required
@@ -17,7 +17,10 @@ def home(request):
 @login_required
 def profile(request, username):
     # Gets a list of all the items in the todo-list database.
-    user = User.objects.get(username=username)
+    try:
+        user = User.objects.get(username=username)
+    except ObjectDoesNotExist:
+        return redirect('/globalstream')
     items = BlogPost.objects.filter(user_id=user).order_by('-published_time')
 
     # render takes: (1) the request,
@@ -30,20 +33,15 @@ def globalstream(request):
     # Gets a list of all the items in the todo-list database.
     items = BlogPost.objects.order_by('-published_time')
 
-    # render takes: (1) the request,
-    #               (2) the name of the view to generate, and
-    #               (3) a dictionary of name-value pairs of data to be
-    #                   available to the view.
     return render(request, 'grumblr/globalstream.html', {'items':items})
 
 @login_required
-# Action for the shared-todo-list/add-item route.
 def add_item(request):
     errors = []  # A list to record messages for any errors we encounter.
 
     # Adds the new item to the database if the request parameter is present
     if not 'item' in request.POST or not request.POST['item']:
-        errors.append('You must enter an item to add.')
+        errors.append('You must enter something.')
     else:
         new_item = BlogPost(blog_text=request.POST['item'], user_id=request.user)
         new_item.save()
@@ -99,3 +97,6 @@ def register(request):
     new_user = authenticate(username=request.POST['username'], password=request.POST['password1'])
     login(request, new_user)
     return redirect('/globalstream')
+
+def nofoundpage(request):
+    return render(request, 'grumblr/404.html')
