@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
 from django.core.exceptions import ObjectDoesNotExist
-from django.contrib.auth.models import User
 from django.contrib.auth import login, authenticate
+from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
+from django.db import transaction
+
 from django.shortcuts import render, redirect
 from grumblr.models import *
+from grimblr.forms import *
 
 # Create your views here.
 def home(request):
@@ -47,45 +50,18 @@ def register(request):
     context = {}
 
     if request.method == 'GET':
+        context['forms'] = RegistrationForm()
         return render(request, 'grumblr/register.html', context)
-    errors = []
-    context['errors'] = errors
 
-    if not 'username' in request.POST or not request.POST['username']:
-        errors.append('Username is required.')
-    else:
-        context['username'] = request.POST['username']
-
-    if not 'firstname' in request.POST or not request.POST['username']:
-        errors.append('First name is required.')
-    else:
-        context['firstname'] = request.POST['lastname']
-
-    if not 'lastname' in request.POST or not request.POST['username']:
-        errors.append('Last name is required.')
-    else:
-        context['lastname'] = request.POST['lastname']
-
-    if not 'password1' in request.POST or not request.POST['password1']:
-        errors.append('Password is required.')
-    if not 'password2' in request.POST or not request.POST['password2']:
-        errors.append('Confirm password is required')
-
-    if 'password1' in request.POST and 'password2' in request.POST \
-            and request.POST['password1'] and request.POST['password2'] \
-            and request.POST['password1'] != request.POST['password2']:
-        errors.append('Password did not match.')
-
-    if len(User.objects.filter(username=request.POST['username'])) > 0:
-        errors.append('Username is already taken.')
-
-    if errors:
+    form = RegistrationForm(request.POST)
+    context['form'] = form
+    if not form.is_valid():
         return render(request, 'grumblr/register.html', context)
+
 
     new_user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'], \
                                         first_name=request.POST['firstname'], last_name=request.POST['lastname'])
     new_user.save()
-
     new_user = authenticate(username=request.POST['username'], password=request.POST['password1'])
     login(request, new_user)
     return redirect('/globalstream')
