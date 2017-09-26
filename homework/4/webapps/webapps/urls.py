@@ -30,6 +30,7 @@ urlpatterns = [
     url(r'^login$', login, {'template_name': 'grumblr/loginpage.html'}, name='login'),
     url(r'^logout$', logout_then_login),
     url(r'^register$', grumblr.views.register),
+    url(r'^additionalinfo$', grumblr.views.additionalinfo),
 ]
 #source: https://docs.djangoproject.com/en/1.11/topics/http/views/
 handler404 = 'grumblr.views.nofoundpage'

@@ -4,8 +4,10 @@ from django.utils import timezone
 
 from django.contrib.auth.models import User
 class UserInfo(models.Model):
-    age = models.IntegerField()
-    short_bio = models.TextField(max_length=420)
+    age = models.IntegerField(null=True)
+    short_bio = models.TextField(max_length=420, null=True)
+    profile_picture = models.ImageField(upload_to='static/grumblr/images', null=True)
+    user_id = models.ForeignKey(User)
 
 class BlogPost(models.Model):
     blog_text = models.TextField(max_length=42)

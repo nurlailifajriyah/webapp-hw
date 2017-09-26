@@ -64,6 +64,22 @@ def register(request):
     new_user.save()
     new_user = authenticate(username=request.POST['username'], password=request.POST['password1'])
     login(request, new_user)
+    return redirect('/additionalinfo')
+
+@login_required
+def additionalinfo(request):
+    context = {}
+
+    if request.method == 'GET':
+        context['form'] = AdditionalInfoForm()
+        return render(request, 'grumblr/additionalinfo.html', context)
+
+    form = AdditionalInfoForm(request.POST)
+    context['form'] = form
+
+    new_info = UserInfo(age=request.POST['age'], short_bio=request.POST['short_bio'], \
+                                        profile_picture=request.POST['profile_picture'], user_id=request.user)
+    new_info.save()
     return redirect('/globalstream')
 
 def nofoundpage(request):
