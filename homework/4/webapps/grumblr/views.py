@@ -7,7 +7,7 @@ from django.db import transaction
 
 from django.shortcuts import render, redirect
 from grumblr.models import *
-from grimblr.forms import *
+from grumblr.forms import *
 
 # Create your views here.
 def home(request):
@@ -50,7 +50,7 @@ def register(request):
     context = {}
 
     if request.method == 'GET':
-        context['forms'] = RegistrationForm()
+        context['form'] = RegistrationForm()
         return render(request, 'grumblr/register.html', context)
 
     form = RegistrationForm(request.POST)

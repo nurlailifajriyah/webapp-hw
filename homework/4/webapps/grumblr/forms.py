@@ -15,7 +15,7 @@ class RegistrationForm(forms.Form):
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Password did not match.")
         return cleaned_datas
-    def username(self):
+    def clean_username(self):
         username = self.cleaned_data.get('username')
         if User.objects.filter(username_exact='username'):
             raise forms.ValidationError("Username is already taken")
