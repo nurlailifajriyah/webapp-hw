@@ -1,4 +1,8 @@
-
-{% for course in courses %}
-{{course}}
+{"Courses":[
+  {% for course in entries %}
+  {"course number":"{{course.course_number}}",
+  "course name":"{{course.course_name}}",
+  "instructor":"{{instructor}}"}
 {% endfor %}
+  ]
+}

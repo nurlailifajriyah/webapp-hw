@@ -1,12 +1,12 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.core.urlresolvers import reverse
 from django.db import transaction
-
+from django.http import HttpResponse
 from sio.models import *
 
 def test(request):
     context = {'entries': Course.get_entries()}
-    return render(request, 'sio.json', context)
+    return render(request, 'sio.json', context, content_type="application/json")
 
 def home(request):
     context = {'entries': Course.get_entries()}
