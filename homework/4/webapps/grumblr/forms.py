@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.models import User
+from grumblr.models import *
 
 class RegistrationForm(forms.Form):
     #add styling to form: https://stackoverflow.com/questions/5827590/css-styling-in-django-forms
@@ -21,7 +22,12 @@ class RegistrationForm(forms.Form):
             raise forms.ValidationError("Username is already taken")
         return username
 
-class AdditionalInfoForm(forms.Form):
+class AdditionalInfoForm(forms.ModelForm):
     age = forms.IntegerField(widget=forms.TextInput(attrs={'class': 'form-control'}))
     short_bio = forms.CharField(max_length=420, widget=forms.TextInput(attrs={'class': 'form-control'}))
     profile_picture = forms.ImageField()
+
+    class Meta:
+        model = UserInfo
+        fields = ('age', 'short_bio', 'profile_picture',)
+        widget = {'picture':forms.FileInput()}

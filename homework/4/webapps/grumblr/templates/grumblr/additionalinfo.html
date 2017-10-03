@@ -43,7 +43,7 @@
                                  alt="logo"><br>
                         </div>
                     </div>
-                    <form method="POST" action="/additionalinfo">
+                    <form method="POST" action="/additionalinfo" enctype="multipart/form-data">
                         {% for field in form.visible_fields %}
                         <div class="form-group">
                             <div>{{field.label_tag}}</div>

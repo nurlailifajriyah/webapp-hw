@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from grumblr.models import *
 from grumblr.forms import *
 
@@ -74,12 +74,12 @@ def additionalinfo(request):
         context['form'] = AdditionalInfoForm()
         return render(request, 'grumblr/additionalinfo.html', context)
 
-    form = AdditionalInfoForm(request.POST)
-    context['form'] = form
-
-    new_info = UserInfo(age=request.POST['age'], short_bio=request.POST['short_bio'], \
-                                        profile_picture=request.POST['profile_picture'], user_id=request.user)
-    new_info.save()
+    new_info = UserInfo(user_id=request.user)
+    form = AdditionalInfoForm(request.POST, request.FILES, instance=new_info)
+    if not form.is_valid:
+        context['form'] = form
+        return render(request, 'grumblr/additionalinfo.html', context)
+    form.save()
     return redirect('/globalstream')
 
 def nofoundpage(request):
