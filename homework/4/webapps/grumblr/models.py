@@ -3,10 +3,14 @@ from django.db import models
 from django.utils import timezone
 
 from django.contrib.auth.models import User
+class RegToken(models.Model):
+    user_id = models.ForeignKey(User)
+    token = models.TextField()
+
 class UserInfo(models.Model):
     age = models.IntegerField(null=True)
     short_bio = models.TextField(max_length=420, null=True)
-    profile_picture = models.ImageField(upload_to='images', blank=True)
+    profile_picture = models.ImageField(upload_to='images', null=True)
     user_id = models.ForeignKey(User)
 
 class BlogPost(models.Model):

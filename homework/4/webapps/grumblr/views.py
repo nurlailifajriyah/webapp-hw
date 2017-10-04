@@ -64,6 +64,9 @@ def register(request):
     new_user.save()
 
     token = default_token_generator.make_token(new_user)
+    new_token = RegToken(user_id=new_user, token=token)
+    new_token.save()
+
     email_body = """
     Please click the link below to verify your email address and complete the registration of your account:
     
@@ -80,11 +83,15 @@ def register(request):
 
 def confirm_registration(request, username, token):
     context = {}
+
     user = User.objects.get(username=username)
-    user.is_active = True
-    user.save()
-    context['is_new'] = 'True'
-    return render(request, 'grumblr/loginpage.html', context)
+
+    recorded_token = RegToken.objects.get(user_id=user).token
+    if recorded_token == token:
+        user.is_active = True
+        user.save()
+        return render(request, 'grumblr/loginpage.html', context)
+    return render(request, 'grumblr/404.html', context)
 
 def loginsuccess(request):
     try:
