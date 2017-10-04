@@ -4,7 +4,8 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
-
+from django.contrib.auth.tokens import default_token_generator
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from grumblr.models import *
 from grumblr.forms import *
@@ -58,12 +59,39 @@ def register(request):
     if not form.is_valid():
         return render(request, 'grumblr/register.html', context)
 
-    new_user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'], \
-                                        first_name=request.POST['firstname'], last_name=request.POST['lastname'])
+    new_user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'], email=request.POST['email'],
+                                        first_name=request.POST['first_name'], last_name=request.POST['last_name'], is_active=False)
     new_user.save()
-    new_user = authenticate(username=request.POST['username'], password=request.POST['password1'])
-    login(request, new_user)
-    return redirect('/additionalinfo')
+
+    token = default_token_generator.make_token(new_user)
+    email_body = """
+    Please click the link below to verify your email address and complete the registration of your account:
+    
+    http://%s%s 
+    """ % (request.get_host(),
+           reverse('confirm_registration', args=(new_user.username, token)))
+
+    send_mail(subject="Verify your email address", message=email_body, from_email="nfajriya@andrew.cmu.edu",
+              recipient_list=[new_user.email])
+
+    context['email'] = form.cleaned_data['email']
+
+    return render(request, 'grumblr/need_confirmation.html', context)
+
+def confirm_registration(request, username, token):
+    context = {}
+    user = User.objects.get(username=username)
+    user.is_active = True
+    user.save()
+    context['is_new'] = 'True'
+    return render(request, 'grumblr/loginpage.html', context)
+
+def loginsuccess(request):
+    try:
+        UserInfo.objects.get(user_id=request.user)
+    except ObjectDoesNotExist:
+        return redirect('/additionalinfo')
+    return redirect('/globalstream')
 
 @login_required
 def additionalinfo(request):

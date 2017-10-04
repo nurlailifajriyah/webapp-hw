@@ -42,7 +42,7 @@ INSTALLED_APPS = [
 
 LOGIN_URL = '/login'
 
-LOGIN_REDIRECT_URL = '/globalstream'
+LOGIN_REDIRECT_URL = '/loginsuccess'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -127,3 +127,5 @@ STATIC_URL = '/static/'
 MEDIA_ROOT = BASE_DIR + '/grumblr/static/grumblr'
 
 MEDIA_URL = '/grumblr/'
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

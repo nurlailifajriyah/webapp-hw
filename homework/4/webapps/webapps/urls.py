@@ -23,6 +23,7 @@ import grumblr.views
 urlpatterns = [
     url(r'^$', grumblr.views.home),
     url(r'^admin/', admin.site.urls),
+    url(r'^loginsuccess/', grumblr.views.loginsuccess),
     url(r'^globalstream$',grumblr.views.globalstream),
     url(r'^add-item',grumblr.views.add_item),
     url(r'^profile/(?P<username>\w+)$',grumblr.views.profile),
@@ -31,6 +32,7 @@ urlpatterns = [
     url(r'^logout$', logout_then_login),
     url(r'^register$', grumblr.views.register),
     url(r'^additionalinfo$', grumblr.views.additionalinfo),
+    url(r'^confirm/(?P<username>\w+)/(?P<token>\S+)$', grumblr.views.confirm_registration, name='confirm_registration'),
 ]
 #source: https://docs.djangoproject.com/en/1.11/topics/http/views/
 handler404 = 'grumblr.views.nofoundpage'
