@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.db import transaction
 
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from grumblr.models import *
 from grumblr.forms import *
 
@@ -57,7 +57,6 @@ def register(request):
     context['form'] = form
     if not form.is_valid():
         return render(request, 'grumblr/register.html', context)
-
 
     new_user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'], \
                                         first_name=request.POST['firstname'], last_name=request.POST['lastname'])
