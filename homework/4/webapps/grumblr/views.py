@@ -7,6 +7,7 @@ from django.db import transaction
 from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, reverse, get_object_or_404
+from django.db.models import Q
 from grumblr.models import *
 from grumblr.forms import *
 
@@ -39,8 +40,13 @@ def profile(request, username):
     return render(request, 'grumblr/profile.html', {'items':items, 'user':user, 'follow':follow, 'requester':requester})
 @login_required
 def globalstream(request):
-    items = BlogPost.objects.order_by('-published_time')
-
+    try:
+        following = Following.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        items = BlogPost.objects.order_by('-published_time').filter(user_id=request.user)
+        return render(request, 'grumblr/globalstream.html', {'items':items})
+    #https://stackoverflow.com/questions/739776/django-filters-or
+    items = BlogPost.objects.order_by('-published_time').filter(Q(user_id=following.follow)| Q(user_id=request.user))
     return render(request, 'grumblr/globalstream.html', {'items':items})
 
 @login_required
