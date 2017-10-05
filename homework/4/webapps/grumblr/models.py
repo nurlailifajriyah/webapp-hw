@@ -10,7 +10,7 @@ class RegToken(models.Model):
 class UserInfo(models.Model):
     age = models.IntegerField(null=True)
     short_bio = models.TextField(max_length=420, null=True)
-    profile_picture = models.ImageField(upload_to='images', null=True)
+    profile_picture = models.ImageField(upload_to='profile_picture', null=True)
     user_id = models.ForeignKey(User)
 
 class Following(models.Model):
