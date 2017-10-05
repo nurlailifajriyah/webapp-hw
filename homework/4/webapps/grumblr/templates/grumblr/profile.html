@@ -28,7 +28,8 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                    aria-haspopup="true" aria-expanded="false">
-                                    <img src="{% static 'grumblr/images/profpict.png' %}" class="img-responsive" alt="profpict">
+                                    <img src="{% static 'grumblr/images/profpict.png' %}" class="img-responsive"
+                                         alt="profpict">
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{request.user}}">My Profile</a></li>
@@ -46,7 +47,8 @@
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
                                    aria-haspopup="true" aria-expanded="false">
-                                    <img src="{% static 'grumblr/images/profpict.png' %}" class="img-responsive" alt="profpict">
+                                    <img src="{% static 'grumblr/images/profpict.png' %}" class="img-responsive"
+                                         alt="profpict">
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="{{request.user}}">My Profile</a></li>
@@ -70,10 +72,21 @@
                 <h3>{{user.first_name}} {{user.last_name}}</h3>
                 <h4>@{{user.username}}</h4>
                 <h6>Bio</h6>
+                {% if user.username != requester %}
+                {% if follow == "Follow" %}
+                <form method="POST" action="/follow/{{user.username}}">
+                    {% else %}
+                    <form method="POST" action="/unfollow/{{user.username}}">
+                        {%endif%}
+                        <button class="btn btn-default">{{follow}}</button>
+                        {% csrf_token %}
+                    </form>
+                    {% endif %}
+                    <h6></h6>
             </div>
         </div>
     </div>
-     <!--One blog post-->
+    <!--One blog post-->
     {% for item in items %}
     <div class="row">
         <div class="col-md-offset-2 col-md-8 col-sm-12  col-xs-12 well" style="padding-bottom:0">
@@ -86,7 +99,8 @@
             <div class="col-md-9 col-sm-9 col-xs-9">
                 <div class="row">
                     <div class="panel panel-info col-md-12 col-sm-12 col-xs-12">
-                        <div class="panel-heading col-md-12 col-sm-12 col-xs-12"><a href="/profile/{{item.user_id}}"><h5>{{item.user_id}}</h5></a></div>
+                        <div class="panel-heading col-md-12 col-sm-12 col-xs-12"><a href="/profile/{{item.user_id}}">
+                            <h5>{{item.user_id}}</h5></a></div>
                         <div class="panel-body col-md-12 col-sm-12 col-xs-12">{{item}}
                         </div>
                     </div>

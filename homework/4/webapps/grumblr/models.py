@@ -13,9 +13,12 @@ class UserInfo(models.Model):
     profile_picture = models.ImageField(upload_to='images', null=True)
     user_id = models.ForeignKey(User)
 
-class Followers(models.Model):
-    user_id = models.ForeignKey(User, related_name='profile')
-    followers = models.ForeignKey(User, related_name='followers')
+class Following(models.Model):
+    user = models.ForeignKey(User, related_name='profile', default='')
+    follow = models.ForeignKey(User, related_name='follow', default='')
+
+    class Meta:
+        unique_together = (("user", "follow"),)
 
 class BlogPost(models.Model):
     blog_text = models.TextField(max_length=42)

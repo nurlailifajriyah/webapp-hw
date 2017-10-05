@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, FieldDoesNotExist
 from django.contrib.auth import login, authenticate
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
@@ -19,13 +19,24 @@ def home(request):
 
 @login_required
 def profile(request, username):
+    requester = request.user.username
     try:
         user = User.objects.get(username=username)
     except ObjectDoesNotExist:
         return redirect('/globalstream')
     items = BlogPost.objects.filter(user_id=user).order_by('-published_time')
+    follow = ''
 
-    return render(request, 'grumblr/profile.html', {'items':items, 'user':user})
+    try:
+        Following.objects.get(user=request.user, follow=user)
+    except ObjectDoesNotExist:
+        follow = 'Follow'
+    except FieldDoesNotExist:
+        follow = 'Follow'
+    if follow == '':
+        follow = 'Unfollow'
+
+    return render(request, 'grumblr/profile.html', {'items':items, 'user':user, 'follow':follow, 'requester':requester})
 @login_required
 def globalstream(request):
     items = BlogPost.objects.order_by('-published_time')
@@ -118,3 +129,15 @@ def additionalinfo(request):
 
 def nofoundpage(request):
     return render(request, 'grumblr/404.html')
+
+def follow(request, username):
+    user = User.objects.get(username=username)
+    following = Following(user=request.user, follow=user)
+    following.save()
+    return redirect('/profile/'+username)
+
+def unfollow(request, username):
+    user = User.objects.get(username=username)
+    following = Following.objects.get(user=request.user, follow=user)
+    following.delete()
+    return redirect('/profile/'+username)
