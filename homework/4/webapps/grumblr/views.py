@@ -58,7 +58,14 @@ def add_item(request):
         new_item = BlogPost(blog_text=request.POST['item'], user_id=request.user)
         new_item.save()
 
-    items = BlogPost.objects.order_by('-published_time')
+    try:
+        following = Following.objects.get(user=request.user)
+    except ObjectDoesNotExist:
+        items = BlogPost.objects.order_by('-published_time').filter(user_id=request.user)
+        return render(request, 'grumblr/globalstream.html', {'items':items})
+    #https://stackoverflow.com/questions/739776/django-filters-or
+    items = BlogPost.objects.order_by('-published_time').filter(Q(user_id=following.follow)| Q(user_id=request.user))
+
     context = {'items':items, 'errors':errors}
     return render(request, 'grumblr/globalstream.html', context)
 
