@@ -11,7 +11,7 @@ class UserInfo(models.Model):
     age = models.IntegerField(null=True)
     short_bio = models.TextField(max_length=420, null=True)
     profile_picture = models.ImageField(upload_to='grumblr/images/profile_picture', null=True)
-    user_id = models.ForeignKey(User)
+    user_id = models.OneToOneField(User, related_name='userinfo')
 
 class Following(models.Model):
     user = models.ForeignKey(User, related_name='profile', default='')

@@ -49,14 +49,20 @@ def profile(request, username):
     return render(request, 'grumblr/profile.html', context)
 @login_required
 def globalstream(request):
+    context={}
     try:
-        following = Following.objects.get(user=request.user)
+        following = Following.objects.filter(user=request.user)
     except ObjectDoesNotExist:
-        items = BlogPost.objects.order_by('-published_time').filter(user_id=request.user)
-        return render(request, 'grumblr/globalstream.html', {'items':items})
+        context['items'] = BlogPost.objects.order_by('-published_time').filter(user_id=request.user)
+        return render(request, 'grumblr/globalstream.html', context)
     #https://stackoverflow.com/questions/739776/django-filters-or
-    items = BlogPost.objects.order_by('-published_time').filter(Q(user_id=following.follow)| Q(user_id=request.user))
-    return render(request, 'grumblr/globalstream.html', {'items':items})
+    context['items'] = BlogPost.objects.order_by('-published_time').filter(Q(user_id__in=following.values_list('follow', flat=True))| Q(user_id=request.user))
+    try:
+        context['userinfo'] = UserInfo.objects.all()
+    except ObjectDoesNotExist:
+        #todo
+        return render(request, 'grumblr/404.html')
+    return render(request, 'grumblr/globalstream.html', context)
 
 @login_required
 def add_item(request):
