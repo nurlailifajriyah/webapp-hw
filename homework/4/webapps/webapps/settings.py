@@ -124,8 +124,8 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = BASE_DIR + '/grumblr/static/grumblr/images'
+MEDIA_ROOT = BASE_DIR + '/grumblr'
 
-MEDIA_URL = '/images/'
+MEDIA_URL = '/grumblr/static/'
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'

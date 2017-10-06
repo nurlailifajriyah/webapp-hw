@@ -18,14 +18,23 @@ def home(request):
 
 @login_required
 def profile(request, username):
+    context = {}
+    #getting the loggedin user
     requester = request.user.username
+    context['requester'] = requester
+    #getting the user of the profile page
     try:
         user = User.objects.get(username=username)
+        context['user'] = user
     except ObjectDoesNotExist:
         return redirect('/globalstream')
+    #getting the user's blog posts
     items = BlogPost.objects.filter(user_id=user).order_by('-published_time')
+    context['items'] = items
+    #getting user info
+    userinfo = UserInfo.objects.get(user_id=user)
+    context['userinfo'] = userinfo
     follow = ''
-
     try:
         Following.objects.get(user=request.user, follow=user)
     except ObjectDoesNotExist:
@@ -35,7 +44,9 @@ def profile(request, username):
     if follow == '':
         follow = 'Unfollow'
 
-    return render(request, 'grumblr/profile.html', {'items':items, 'user':user, 'follow':follow, 'requester':requester})
+    context['follow'] = follow
+
+    return render(request, 'grumblr/profile.html', context)
 @login_required
 def globalstream(request):
     try:
