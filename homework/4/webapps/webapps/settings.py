@@ -124,7 +124,7 @@ USE_TZ = False
 
 STATIC_URL = '/static/'
 
-MEDIA_ROOT = BASE_DIR + '/grumblr'
+MEDIA_ROOT = BASE_DIR + '/grumblr/static/'
 
 MEDIA_URL = '/grumblr/static/'
 

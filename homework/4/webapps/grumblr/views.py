@@ -32,7 +32,10 @@ def profile(request, username):
     items = BlogPost.objects.filter(user_id=user).order_by('-published_time')
     context['items'] = items
     #getting user info
-    userinfo = UserInfo.objects.get(user_id=user)
+    try:
+        userinfo = UserInfo.objects.get(user_id=user)
+    except ObjectDoesNotExist:
+        return redirect('/globalstream')
     context['userinfo'] = userinfo
     follow = ''
     try:
