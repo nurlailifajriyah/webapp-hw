@@ -132,12 +132,16 @@ def confirm_registration(request, username, token):
 
     user = User.objects.get(username=username)
 
-    recorded_token = RegToken.objects.get(user_id=user).token
-    if recorded_token == token:
-        user.is_active = True
-        user.save()
-        return render(request, 'grumblr/loginpage.html', context)
-    return render(request, 'grumblr/404.html', context)
+    try:
+        tokens = RegToken.objects.filter(user_id=user, token=token)
+        if (tokens.count() <= 0):
+            return render(request, 'grumblr/404.html', context)
+    except ObjectDoesNotExist:
+        return render(request, 'grumblr/404.html', context)
+    user.is_active = True
+    user.save()
+    context['message'] = "Verification success. Now, you can login to your Gumblr."
+    return render(request, 'grumblr/loginpage.html', context)
 
 
 def loginsuccess(request):
@@ -210,10 +214,10 @@ def editprofile(request, username):
     if not form2.is_valid:
         context['form2'] = form2
         return render(request, 'grumblr/editprofile.html', context)
-
     form2.save()
     user.save()
-    return redirect('/profile/' + username)
+    context['message'] = 'Edit profile success. Please login again.'
+    return render(request, 'grumblr/loginpage.html', context)
 
 
 def forgotpassword(request):
@@ -248,7 +252,9 @@ def resetpassword(request, username, token):
     user = User.objects.get(username=username)
     form = ResetPasswordForm()
     try:
-        RegToken.objects.filter(user_id=user, token=token)
+        tokens = RegToken.objects.filter(user_id=user, token=token)
+        if (tokens.count() <= 0):
+            return render(request, 'grumblr/404.html', context)
     except ObjectDoesNotExist:
         return render(request, 'grumblr/404.html', context)
     context['form'] = form
@@ -263,4 +269,5 @@ def resetpassword(request, username, token):
     user.set_password(request.POST['password1'])
     user.save()
 
-    return redirect('login')
+    context['message'] = 'Reset password success. Please login again.'
+    return render(request, 'grumblr/loginpage.html', context)

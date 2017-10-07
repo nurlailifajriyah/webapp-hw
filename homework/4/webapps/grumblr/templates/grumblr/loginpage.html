@@ -1,5 +1,6 @@
 {% extends 'grumblr/form_base.html' %}
 {% block content %}
+                    {{message}}
                     <form method="post" action="{% url 'login' %}">
                         <div class="form-group">
                             <label for="username">Username</label>
