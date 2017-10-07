@@ -22,8 +22,9 @@
                         {% csrf_token %}
                     </form>
                     {% else%}
-                        <form method="POST" action="/editprofile/{{user.username}}">
+                        <form method="GET" action="/editprofile/{{user.username}}">
                             <button class="btn btn-default">Edit Profile</button>
+                            {% csrf_token %}
                         </form>
                     {% endif %}
                     <h6></h6>
