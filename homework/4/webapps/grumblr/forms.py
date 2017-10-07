@@ -12,7 +12,7 @@ class RegistrationForm(forms.ModelForm):
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
             'username': forms.TextInput(attrs={'class': 'form-control'}),
         }
         labels = {
@@ -45,7 +45,7 @@ class AdditionalInfoForm(forms.ModelForm):
         model = UserInfo
         fields = ('age', 'short_bio', 'profile_picture',)
         widgets = {
-            'age': forms.TextInput(attrs={'class': 'form-control'}),
+            'age': forms.NumberInput(attrs={'class': 'form-control'}),
             'short_bio': forms.TextInput(attrs={'class': 'form-control'}),
             'profile_picture':forms.FileInput()
         }
@@ -60,7 +60,7 @@ class EditProfileForm(forms.ModelForm):
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control'}),
-            'email': forms.TextInput(attrs={'class': 'form-control'}),
+            'email': forms.EmailInput(attrs={'class': 'form-control'}),
         }
         labels = {
             'password1': 'Password',
