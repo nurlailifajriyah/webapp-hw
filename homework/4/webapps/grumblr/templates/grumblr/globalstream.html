@@ -62,10 +62,11 @@
             </nav>
         </div> <!-- /.col-md-12 -->
     </div>
+    {% block profile_header %}{% endblock %}
     <!--Text area-->
     <div class="row">
         <div class="col-md-offset-2 col-md-8 col-md-offset-2 well" style="padding-bottom:0">
-            <form accept-charset="UTF-8" action="/add-item" method="POST">
+            <form accept-charset="UTF-8" action="/add-item/{{page}}" method="POST">
                 <div class="row">
             <textarea class="col-md-offset-1 col-md-11 text-post" id="new_message" name="item"
                       placeholder="What's on your mind?" rows="5" maxlength="42"></textarea>

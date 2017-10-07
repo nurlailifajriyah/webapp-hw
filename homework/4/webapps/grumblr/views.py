@@ -19,6 +19,7 @@ def home(request):
 @login_required
 def profile(request, username):
     context = {}
+    context['page'] = "profile"
     #getting the loggedin user
     requester = request.user.username
     context['requester'] = requester
@@ -53,6 +54,7 @@ def profile(request, username):
 @login_required
 def globalstream(request):
     context={}
+    context['page'] = "globalstream"
     try:
         following = Following.objects.filter(user=request.user)
     except ObjectDoesNotExist:
@@ -68,7 +70,7 @@ def globalstream(request):
     return render(request, 'grumblr/globalstream.html', context)
 
 @login_required
-def add_item(request):
+def add_item(request, page):
     errors = []  # A list to record messages for any errors we encounter.
 
     # Adds the new item to the database if the request parameter is present
@@ -77,17 +79,10 @@ def add_item(request):
     else:
         new_item = BlogPost(blog_text=request.POST['item'], user_id=request.user)
         new_item.save()
-
-    try:
-        following = Following.objects.get(user=request.user)
-    except ObjectDoesNotExist:
-        items = BlogPost.objects.order_by('-published_time').filter(user_id=request.user)
-        return render(request, 'grumblr/globalstream.html', {'items':items})
-    #https://stackoverflow.com/questions/739776/django-filters-or
-    items = BlogPost.objects.order_by('-published_time').filter(Q(user_id=following.follow)| Q(user_id=request.user))
-
-    context = {'items':items, 'errors':errors}
-    return render(request, 'grumblr/globalstream.html', context)
+    if page == 'profile':
+        return redirect('/profile/'+request.user.username)
+    else:
+        return redirect('/globalstream')
 
 def register(request):
     context = {}
@@ -172,3 +167,6 @@ def unfollow(request, username):
     following = Following.objects.get(user=request.user, follow=user)
     following.delete()
     return redirect('/profile/'+username)
+
+def editprofile(request, username):
+    return redirect('/profile/' + username)

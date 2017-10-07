@@ -1,67 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    {% load static %}
-    <!-- Bootstrap CSS -->
-    <link href="{% static 'grumblr/css/bootstrap.min.css' %}" rel="stylesheet">
-    <!-- Customized CSS -->
-    <link href="{% static 'grumblr/css/bootstrap-grumblr.css' %}" rel="stylesheet">
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="{% static 'grumblr/images/favicon.ico' %}">
-    <!-- Bootstrap Javascript -->
-    <script src="{% static 'grumblr/js/jquery-3.2.1.js' %}"></script>
-    <script src="{% static 'grumblr/js/bootstrap.min.js' %}"></script>
-    <title>grumblr</title>
-</head>
-<body>
-<div class="container">
-    <!-- Header -->
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12" role="main">
-            <!--http://getbootstrap.com/docs/3.3/components/#navbar-->
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <ul class="navbar-toggle collapsed" style="background-color: transparent;">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false">
-                                    <img src="{% static 'grumblr/images/profpict.png' %}" class="img-responsive"
-                                         alt="profpict">
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{request.user}}">My Profile</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="/logout">Logout</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-
-                        <a class="navbar-brand" href="../globalstream">Grumblr</a>
-                    </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false">
-                                    <img src="{% static 'grumblr/images/profpict.png' %}" class="img-responsive"
-                                         alt="profpict">
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="{{request.user}}">My Profile</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="/logout">Logout</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-                </div>
-            </nav>
-        </div> <!-- /.col-md-12 -->
-    </div>
+{% extends 'grumblr/globalstream.html' %}
+{% block profile_header %}
+{% load static %}
     <!--Profile Header-->
     <div class="row">
         <div class="col-md-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12 well" style="padding-bottom:0">
@@ -82,38 +21,13 @@
                         <button class="btn btn-default">{{follow}}</button>
                         {% csrf_token %}
                     </form>
+                    {% else%}
+                        <form method="POST" action="/editprofile/{{user.username}}">
+                            <button class="btn btn-default">Edit Profile</button>
+                        </form>
                     {% endif %}
                     <h6></h6>
             </div>
         </div>
     </div>
-    <!--One blog post-->
-    {% for item in items %}
-    <div class="row">
-        <div class="col-md-offset-2 col-md-8 col-sm-12  col-xs-12 well" style="padding-bottom:0">
-            <div class="col-md-2 col-sm-2 col-xs-2">
-                <a href="/profile/{{item.user_id}}">
-                    <img src="{% static userinfo.profile_picture %}" class="img-responsive"
-                         alt="profpict">
-                </a>
-            </div>
-            <div class="col-md-9 col-sm-9 col-xs-9">
-                <div class="row">
-                    <div class="panel panel-info col-md-12 col-sm-12 col-xs-12">
-                        <div class="panel-heading col-md-12 col-sm-12 col-xs-12"><a href="/profile/{{item.user_id}}">
-                            <h5>{{item.user_id}}</h5></a></div>
-                        <div class="panel-body col-md-12 col-sm-12 col-xs-12">{{item}}
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <p class="date-font">{{item.published_time}}</p>
-                </div>
-            </div>
-
-        </div>
-    </div>
-    {% endfor %}
-</div>
-</body>
-</html>
+{% endblock %}
