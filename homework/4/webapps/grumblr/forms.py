@@ -106,3 +106,11 @@ class ResetPasswordForm(forms.ModelForm):
         if password1 and password2 and password1 != password2:
             raise forms.ValidationError("Password did not match.")
         return cleaned_data
+
+class ForgotPasswordForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('username',)
+        widgets = {
+            'username': forms.TextInput(attrs={'class': 'form-control'}),
+        }

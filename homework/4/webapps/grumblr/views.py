@@ -221,13 +221,15 @@ def editprofile(request, username):
 
 
 def forgotpassword(request):
+    context = {}
     if request.method == 'GET':
-        return render(request, 'grumblr/forgotpassword.html')
-
+        context['form'] = ForgotPasswordForm()
+        return render(request, 'grumblr/forgotpassword.html', context)
     try:
         user = User.objects.get(username=request.POST['username'])
     except ObjectDoesNotExist:
-        return render(request, 'grumblr/forgotpassword.html')
+        context['message'] = "Username does not exist."
+        return render(request, 'grumblr/forgotpassword.html', context)
 
     token = default_token_generator.make_token(user)
     new_token = RegToken(user_id=user, token=token)
