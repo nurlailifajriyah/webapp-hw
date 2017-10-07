@@ -130,9 +130,10 @@ def register(request):
 
 def confirm_registration(request, username, token):
     context = {}
-
-    user = User.objects.get(username=username)
-
+    try:
+        user = User.objects.get(username=username)
+    except ObjectDoesNotExist:
+        return render(request, 'grumblr/404.html', context)
     try:
         tokens = RegToken.objects.filter(user_id=user, token=token)
         if (tokens.count() <= 0):
@@ -176,7 +177,10 @@ def nofoundpage(request):
 
 @login_required
 def follow(request, username):
-    user = User.objects.get(username=username)
+    try:
+        user = User.objects.get(username=username)
+    except ObjectDoesNotExist:
+        return redirect('/profile/' + username)
     following = Following(user=request.user, follow=user)
     following.save()
     return redirect('/profile/' + username)
@@ -184,8 +188,14 @@ def follow(request, username):
 
 @login_required
 def unfollow(request, username):
-    user = User.objects.get(username=username)
-    following = Following.objects.get(user=request.user, follow=user)
+    try:
+        user = User.objects.get(username=username)
+    except ObjectDoesNotExist:
+        return redirect('/profile/' + username)
+    try:
+        following = Following.objects.get(user=request.user, follow=user)
+    except ObjectDoesNotExist:
+        return redirect('/profile/' + username)
     following.delete()
     return redirect('/profile/' + username)
 
@@ -193,9 +203,14 @@ def unfollow(request, username):
 @login_required
 def editprofile(request, username):
     context = {}
-    user = User.objects.get(username=username)
-    userinfo = UserInfo.objects.get(user_id=user)
-
+    try:
+        user = User.objects.get(username=username)
+    except ObjectDoesNotExist:
+        return render(request, 'grumblr/404.html', context)
+    try:
+        userinfo = UserInfo.objects.get(user_id=user)
+    except ObjectDoesNotExist:
+        return render(request, 'grumblr/404.html', context)
     if request.method == 'GET':
         context['form'] = EditProfileForm(
             initial={'email': user.email, 'first_name': user.first_name,
@@ -251,8 +266,10 @@ def forgotpassword(request):
 
 def resetpassword(request, username, token):
     context = {}
-
-    user = User.objects.get(username=username)
+    try:
+        user = User.objects.get(username=username)
+    except ObjectDoesNotExist:
+        return render(request, 'grumblr/404.html', context)
     form = ResetPasswordForm()
     try:
         tokens = RegToken.objects.filter(user_id=user, token=token)
