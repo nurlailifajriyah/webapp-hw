@@ -205,16 +205,62 @@ def editprofile(request, username):
     user.last_name = request.POST['last_name']
     user.set_password(request.POST['password1'])
 
-
-    #new_info = UserInfo.objects.get(user_id=user.id)
     form2 = AdditionalInfoForm(request.POST, request.FILES, instance=userinfo)
 
     if not form2.is_valid:
         context['form2'] = form2
         return render(request, 'grumblr/editprofile.html', context)
 
-    # UserInfo.objects.filter(user_id=user).update(short_bio=request.POST['short_bio'],profile_picture='grumblr/images/profile_picture/'+request.POST['profile_picture'])
-
     form2.save()
     user.save()
     return redirect('/profile/' + username)
+
+
+def forgotpassword(request):
+    if request.method == 'GET':
+        return render(request, 'grumblr/forgotpassword.html')
+
+    try:
+        user = User.objects.get(username=request.POST['username'])
+    except ObjectDoesNotExist:
+        return render(request, 'grumblr/forgotpassword.html')
+
+    token = default_token_generator.make_token(user)
+    new_token = RegToken(user_id=user, token=token)
+    new_token.save()
+
+    email_body = """
+    Please click the link below to change your password:
+
+    http://%s%s 
+    """ % (request.get_host(),
+           reverse('resetpassword', args=(user.username, token)))
+
+    send_mail(subject="Reset Password", message=email_body, from_email="nfajriya@andrew.cmu.edu",
+              recipient_list=[user.email])
+
+    return render(request, 'grumblr/requestsent.html')
+
+
+def resetpassword(request, username, token):
+    context = {}
+
+    user = User.objects.get(username=username)
+    form = ResetPasswordForm()
+    try:
+        RegToken.objects.filter(user_id=user, token=token)
+    except ObjectDoesNotExist:
+        return render(request, 'grumblr/404.html', context)
+    context['form'] = form
+    context['username'] = username
+    context['token'] = token
+    if request.method == 'GET':
+        return render(request, 'grumblr/resetpassword.html', context)
+
+    #if not form.is_valid():
+       # return redirect('/resetrequest/' + username + '/' + token)
+
+    user.set_password(request.POST['password1'])
+    user.save()
+
+    return redirect('login')

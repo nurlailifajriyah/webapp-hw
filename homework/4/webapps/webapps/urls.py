@@ -35,6 +35,8 @@ urlpatterns = [
     url(r'^follow/(?P<username>\w+)$',grumblr.views.follow),
     url(r'^unfollow/(?P<username>\w+)$',grumblr.views.unfollow),
     url(r'^editprofile/(?P<username>\w+)$',grumblr.views.editprofile),
+    url(r'^forgotpassword$', grumblr.views.forgotpassword),
+    url(r'^resetrequest/(?P<username>\w+)/(?P<token>\S+)$', grumblr.views.resetpassword, name='resetpassword'),
 ]
 #source: https://docs.djangoproject.com/en/1.11/topics/http/views/
 handler404 = 'grumblr.views.nofoundpage'
