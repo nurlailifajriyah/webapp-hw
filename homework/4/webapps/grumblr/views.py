@@ -30,16 +30,10 @@ def profile(request, username):
         user = User.objects.get(username=username)
         context['user'] = user
     except ObjectDoesNotExist:
-        return redirect('/globalstream')
+        return render(request, 'grumblr/404.html')
     # getting the user's blog posts
     items = BlogPost.objects.filter(user_id=user).order_by('-published_time')
     context['items'] = items
-    # getting user info
-    try:
-        userinfo = UserInfo.objects.get(user_id=user)
-    except ObjectDoesNotExist:
-        return redirect('/globalstream')
-    context['userinfo'] = userinfo
     follow = ''
     try:
         Following.objects.get(user=request.user, follow=user)
@@ -51,6 +45,13 @@ def profile(request, username):
         follow = 'Unfollow'
 
     context['follow'] = follow
+    # getting user info
+    try:
+        userinfo = UserInfo.objects.get(user_id=user)
+    except ObjectDoesNotExist:
+        return render(request, 'grumblr/profile.html', context)
+    context['userinfo'] = userinfo
+
 
     return render(request, 'grumblr/profile.html', context)
 
