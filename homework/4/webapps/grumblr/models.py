@@ -23,7 +23,7 @@ class Following(models.Model):
 class BlogPost(models.Model):
     blog_text = models.TextField(max_length=42)
     published_time = models.DateTimeField(default=timezone.now)
-    user_id = models.ForeignKey(User)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
     def __unicode__(self):
         return self.blog_text
