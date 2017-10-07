@@ -273,3 +273,10 @@ def resetpassword(request, username, token):
 
     context['message'] = 'Reset password success. Please login again.'
     return render(request, 'grumblr/loginpage.html', context)
+
+@login_required
+def findusers(request):
+    context = {}
+    users = User.objects.order_by('username')
+    context['users'] = users
+    return render(request, 'grumblr/findusers.html', context)
