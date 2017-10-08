@@ -60,6 +60,7 @@ def profile(request, username):
 def globalstream(request):
     context = {}
     context['page'] = "globalstream"
+    context['requester'] = request.user.username
     try:
         following = Following.objects.filter(user=request.user)
     except ObjectDoesNotExist:
@@ -211,6 +212,7 @@ def editprofile(request, username):
         userinfo = UserInfo.objects.get(user_id=user)
     except ObjectDoesNotExist:
         return render(request, 'grumblr/404.html', context)
+
     if request.method == 'GET':
         context['form'] = EditProfileForm(
             initial={'email': user.email, 'first_name': user.first_name,
@@ -218,16 +220,20 @@ def editprofile(request, username):
         context['form2'] = AdditionalInfoForm(initial={'age': userinfo.age, 'short_bio': userinfo.short_bio})
         return render(request, 'grumblr/editprofile.html', context)
 
-    # if not form.is_valid():
-    # return render(request, 'grumblr/editprofile.html', context)
+    form = EditProfileForm(request.POST)
+    form2 = AdditionalInfoForm(request.POST, request.FILES, instance=userinfo)
+    if not form.is_valid():
+        context['form'] = form
+        context['form2'] = form2
+        return render(request, 'grumblr/editprofile.html', context)
+
     user.email = request.POST['email']
     user.first_name = request.POST['first_name']
     user.last_name = request.POST['last_name']
     user.set_password(request.POST['password1'])
 
-    form2 = AdditionalInfoForm(request.POST, request.FILES, instance=userinfo)
-
     if not form2.is_valid:
+        context['form'] = form
         context['form2'] = form2
         return render(request, 'grumblr/editprofile.html', context)
     form2.save()
@@ -280,11 +286,14 @@ def resetpassword(request, username, token):
     context['form'] = form
     context['username'] = username
     context['token'] = token
+    context['message'] = 'get'
     if request.method == 'GET':
         return render(request, 'grumblr/resetpassword.html', context)
-
-    #if not form.is_valid():
-       # return redirect('/resetrequest/' + username + '/' + token)
+    form = ResetPasswordForm(request.POST)
+    if not form.is_valid():
+        context['form'] = form
+        context['message'] = 'not valid'
+        return render(request, 'grumblr/resetpassword.html', context)
 
     user.set_password(request.POST['password1'])
     user.save()

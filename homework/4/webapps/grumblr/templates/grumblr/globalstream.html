@@ -65,6 +65,7 @@
         </div> <!-- /.col-md-12 -->
     </div>
     {% block profile_header %}{% endblock %}
+    {% if page == 'globalstream' or page == 'profile' and user.username == requester %}
     <!--Text area-->
     <div class="row">
         <div class="col-md-offset-2 col-md-8 col-md-offset-2 well" style="padding-bottom:0">
@@ -82,6 +83,7 @@
             </form>
         </div>
     </div>
+    {% endif %}
     <!--One blog post-->
     {% for item in items %}
     <div class="row">

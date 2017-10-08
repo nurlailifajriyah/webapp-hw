@@ -10,6 +10,7 @@
             <div class="col-md-8 col-sm-8 col-xs-8">
                 <h3>{{user.first_name}} {{user.last_name}}</h3>
                 <h4>@{{user.username}}</h4>
+                <h6>email: {{user.email}}</h6>
                 <h6>age: {{userinfo.age}}</h6>
                 <h6>{{userinfo.short_bio}}</h6>
                 {% if user.username != requester %}
