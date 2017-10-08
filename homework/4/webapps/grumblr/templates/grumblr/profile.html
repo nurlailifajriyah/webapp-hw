@@ -12,7 +12,7 @@
                 <h4>@{{user.username}}</h4>
                 <h6>email: {{user.email}}</h6>
                 <h6>age: {{userinfo.age}}</h6>
-                <h6>{{userinfo.short_bio}}</h6>
+                <h6>bio: {{userinfo.short_bio}}</h6>
                 {% if user.username != requester %}
                 {% if follow == "Follow" %}
                 <form method="POST" action="/follow/{{user.username}}">
