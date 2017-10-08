@@ -22,10 +22,10 @@ import grumblr.views
 
 urlpatterns = [
     url(r'^$', grumblr.views.home),
-    url(r'^admin/', admin.site.urls),
-    url(r'^loginsuccess/', grumblr.views.loginsuccess),
+    url(r'^admin$', admin.site.urls),
+    url(r'^loginsuccess/$', grumblr.views.loginsuccess),
     url(r'^globalstream$',grumblr.views.globalstream),
-    url(r'^add-item/(?P<page>\w+)',grumblr.views.add_item),
+    url(r'^add-item/(?P<page>\w+)$',grumblr.views.add_item),
     url(r'^profile/(?P<username>\w+)$',grumblr.views.profile),
     url(r'^login$', login, {'template_name': 'grumblr/loginpage.html'}, name='login'),
     url(r'^logout$', logout_then_login),
@@ -37,7 +37,7 @@ urlpatterns = [
     url(r'^editprofile/(?P<username>\w+)$',grumblr.views.editprofile),
     url(r'^forgotpassword$', grumblr.views.forgotpassword),
     url(r'^resetrequest/(?P<username>\w+)/(?P<token>\S+)$', grumblr.views.resetpassword, name='resetpassword'),
-    url(r'^findusers/', grumblr.views.findusers),
+    url(r'^findusers/$', grumblr.views.findusers),
 ]
 #source: https://docs.djangoproject.com/en/1.11/topics/http/views/
 handler404 = 'grumblr.views.nofoundpage'
