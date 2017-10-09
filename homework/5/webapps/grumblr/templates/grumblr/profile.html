@@ -1,0 +1,35 @@
+{% extends 'grumblr/globalstream.html' %}
+{% block profile_header %}
+{% load static %}
+    <!--Profile Header-->
+    <div class="row">
+        <div class="col-md-offset-1 col-md-10 col-md-offset-1 col-sm-12 col-xs-12 well" style="padding-bottom:0">
+            <div class="col-md-2 col-sm-2 col-xs-2">
+                <img src="{% static userinfo.profile_picture %}" class="img-responsive" alt="profpict">
+            </div>
+            <div class="col-md-8 col-sm-8 col-xs-8">
+                <h3>{{user.first_name}} {{user.last_name}}</h3>
+                <h4>@{{user.username}}</h4>
+                <h6>email: {{user.email}}</h6>
+                <h6>age: {{userinfo.age}}</h6>
+                <h6>bio: {{userinfo.short_bio}}</h6>
+                {% if user.username != requester %}
+                {% if follow == "Follow" %}
+                <form method="POST" action="/follow/{{user.username}}">
+                    {% else %}
+                    <form method="POST" action="/unfollow/{{user.username}}">
+                        {%endif%}
+                        <button class="btn btn-default">{{follow}}</button>
+                        {% csrf_token %}
+                    </form>
+                    {% else%}
+                        <form method="GET" action="/editprofile/{{user.username}}">
+                            <button class="btn btn-default">Edit Profile</button>
+                            {% csrf_token %}
+                        </form>
+                    {% endif %}
+                    <h6></h6>
+            </div>
+        </div>
+    </div>
+{% endblock %}
