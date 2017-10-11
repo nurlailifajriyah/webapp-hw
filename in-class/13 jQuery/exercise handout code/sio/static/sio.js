@@ -40,7 +40,7 @@ $( document ).ready(function() {  // Runs when the document is ready
   // TODO:  Use jQuery to send an Ajax GET request to /sio/get-courses and
   // update the list of courses on the web page.  (Use our provided
   // helper method, updateChanges, below.)
-
+    $.get("/sio/get-courses", updateChanges)
 
 
   $('#create-student-form').on('submit', function(event) {
