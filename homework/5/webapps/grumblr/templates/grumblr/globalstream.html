@@ -12,6 +12,7 @@
     <!-- Bootstrap Javascript -->
     <script src="{% static 'grumblr/js/jquery-3.2.1.js' %}"></script>
     <script src="{% static 'grumblr/js/bootstrap.min.js' %}"></script>
+    <script src="{% static 'grumblr/js/grumblr.js' %}"></script>
     <title>grumblr</title>
 </head>
 <body>
@@ -88,35 +89,63 @@
     {% if page == 'globalstream' and items.count <= 0 %}
     <div class="col-md-offset-2 col-md-8 col-sm-12  col-xs-12 well" style="padding-bottom:0">
         <a href="/findusers"><h4>Find some friends?</h4></a></div>
-    </div>
-    {% endif %}
-    {% for item in items %}
-    <div class="row">
-        <div class="col-md-offset-2 col-md-8 col-sm-12  col-xs-12 well" style="padding-bottom:0">
-            <div class="col-md-2 col-sm-2 col-xs-2">
-                <a href="/profile/{{item.user_id}}">
-                    <img src="{% static item.user_id.userinfo.profile_picture %}" class="img-responsive"
-                         alt="profpict">
-                </a>
+</div>
+{% endif %}
+{% for item in items %}
+<div class="row">
+    <div class="col-md-offset-2 col-md-8 col-sm-12  col-xs-12 well" style="padding-bottom:0">
+        <div class="col-md-2 col-sm-2 col-xs-2">
+            <a href="/profile/{{item.user_id}}">
+                <img src="{% static item.user_id.userinfo.profile_picture %}" class="img-responsive"
+                     alt="profpict">
+            </a>
+        </div>
+        <div class="col-md-9 col-sm-9 col-xs-9">
+            <div class="row">
+                <div class="panel panel-info col-md-12 col-sm-12 col-xs-12">
+                    <div class="panel-heading col-md-12 col-sm-12 col-xs-12"><a href="/profile/{{item.user_id}}"><h5>
+                        {{item.user_id}}</h5></a></div>
+                    <div class="panel-body col-md-12 col-sm-12 col-xs-12">{{item}}
+                    </div>
+                </div>
             </div>
-            <div class="col-md-9 col-sm-9 col-xs-9">
-                <div class="row">
-                    <div class="panel panel-info col-md-12 col-sm-12 col-xs-12">
-                        <div class="panel-heading col-md-12 col-sm-12 col-xs-12"><a href="/profile/{{item.user_id}}"><h5>{{item.user_id}}</h5></a></div>
-                        <div class="panel-body col-md-12 col-sm-12 col-xs-12">{{item}}
+            <div class="row">
+                <div class="col-md-9 col-sm-9 col-xs-9">
+                    <p class="panel date-font">{{item.published_time}}</p>
+                </div>
+                <div class="col-md-2 col-sm-2 col-xs-2">
+                    <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModal">
+                        Add Comment
+                    </button>
+                    <!-- Modal -->
+                    <!-- http://getbootstrap.com/docs/3.3/javascript/#modals -->
+                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                        <div class="modal-dialog" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                                            aria-hidden="true">&times;</span></button>
+                                    <h4 class="Add Comment" id="myModalLabel">Modal title</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <textarea class="text-post" id="new_message" name="item" rows="5" maxlength="42"></textarea>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="comment-btn">Save changes</button>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="row">
-                    <p class="date-font">{{item.published_time}}</p>
-                </div>
             </div>
-
         </div>
-    </div>
-    {% endfor %}
 
-    {{item.user_id.userinfo.profile_picture}}
+    </div>
+</div>
+{% endfor %}
+
+{{item.user_id.userinfo.profile_picture}}
 </div>
 
 </body>
