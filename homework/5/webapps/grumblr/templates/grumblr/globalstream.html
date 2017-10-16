@@ -70,7 +70,7 @@
     <!--Text area-->
     <div class="row">
         <div class="col-md-offset-2 col-md-8 col-md-offset-2 well" style="padding-bottom:0">
-            <form accept-charset="UTF-8" action="/add-item/{{page}}" method="POST">
+            <form accept-charset="UTF-8">
                 <div class="row">
             <textarea class="col-md-offset-1 col-md-11 text-post" id="new_message" name="item"
                       placeholder="What's on your mind?" rows="5" maxlength="42"></textarea>
@@ -85,12 +85,12 @@
         </div>
     </div>
     {% endif %}
-    <!--One blog post-->
     {% if page == 'globalstream' and items.count <= 0 %}
     <div class="col-md-offset-2 col-md-8 col-sm-12  col-xs-12 well" style="padding-bottom:0">
         <a href="/findusers"><h4>Find some friends?</h4></a></div>
 </div>
 {% endif %}
+    <!--One blog post-->
 <div id="blogpost">
 
 </div>
