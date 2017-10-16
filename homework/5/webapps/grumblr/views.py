@@ -70,11 +70,6 @@ def globalstream(request):
     # https://stackoverflow.com/questions/739776/django-filters-or
     context['items'] = BlogPost.objects.order_by('-published_time').filter(
         Q(user_id__in=following.values_list('follow', flat=True)) | Q(user_id=request.user))
-    try:
-        context['userinfo'] = UserInfo.objects.all()
-    except ObjectDoesNotExist:
-        # todo
-        return render(request, 'grumblr/404.html')
     return render(request, 'grumblr/globalstream.html', context)
 
 def get_items(request, time="1970-01-01T00:00+00:00"):
@@ -83,9 +78,10 @@ def get_items(request, time="1970-01-01T00:00+00:00"):
     context = {"max_time": max_time, "items": items}
     return render(request, 'grumblr/items.json', context, content_type='application/json')
 
-def get_profile_items(request, time="1970-01-01T00:00+00:00"):
+def get_profile_items(request, time="1970-01-01T00:00+00:00", username=''):
+    user = User.objects.get(username=username)
     max_time = BlogPost.get_max_time()
-    items = BlogPost.get_profile_items(time, request.user)
+    items = BlogPost.get_profile_items(time, user)
     context = {"max_time": max_time, "items": items}
     return render(request, 'grumblr/items.json', context, content_type='application/json')
 

@@ -40,8 +40,8 @@ urlpatterns = [
     url(r'^findusers/$', grumblr.views.findusers),
     url(r'^get-items/?$', grumblr.views.get_items),
     url(r'^get-items/(?P<time>.+)$', grumblr.views.get_items),
-    url(r'^get-profile-items/?$', grumblr.views.get_profile_items),
-    url(r'^get-profile-items/(?P<time>.+)$', grumblr.views.get_profile_items),
+    url(r'^get-profile-items/(?P<username>\w+)$', grumblr.views.get_profile_items),
+    url(r'^get-profile-items/(?P<username>\w+)/(?P<time>.+)$', grumblr.views.get_profile_items),
 
 
 

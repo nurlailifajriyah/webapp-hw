@@ -5,7 +5,8 @@ function showCommentArea(){
 function populateList() {
     var pathname = '/get-items';
     if(window.location.pathname.includes("profile")){
-        pathname = '/get-profile-items';
+        var paths = window.location.pathname.split('/')
+        pathname = '/get-profile-items/' + paths[paths.length-1];
     }
     $.get(pathname)
       .done(function(data) {
@@ -23,11 +24,9 @@ function populateList() {
 
 function getUpdates() {
     var pathname = '/get-items/';
-    if(window.location.pathname.includes("profile")){
-        pathname = '/get-profile-items/';
-    }
     var list = $("#blogpost")
     var max_time = list.data("max-time")
+
     $.get(pathname + max_time)
       .done(function(data) {
           list.data('max-time', data['max-time']);
@@ -39,7 +38,23 @@ function getUpdates() {
           }
       });
 }
+function getProfileUpdates() {
+    var paths = window.location.pathname.split('/')
+    var pathname = '/get-profile-items/';
+    var list = $("#blogpost")
+    var max_time = list.data("max-time")
 
+    $.get(pathname + paths[paths.length-1] + '/' + max_time )
+      .done(function(data) {
+          list.data('max-time', data['max-time']);
+          for (var i = 0; i < data.items.length; i++) {
+              var item = data.items[i];
+                  var new_item = $(item.html); //call html from model.py
+                  new_item.data("item-id", item.id);
+                  list.prepend(new_item);
+          }
+      });
+}
 function addItem(){
     var itemField = $("#new_message");
     $.post("/add-item/globalstream", {"item": itemField.val()})
@@ -57,7 +72,12 @@ $(document).ready(function () {
   populateList();
   $("#new_message").focus();
 
-  window.setInterval(getUpdates, 5000);
+  if(window.location.pathname.includes("profile")){
+    window.setInterval(getProfileUpdates, 5000);
+   }
+   else{
+    window.setInterval(getUpdates, 5000);
+   }
 
   // CSRF set-up copied from Django docs
   function getCookie(name) {
