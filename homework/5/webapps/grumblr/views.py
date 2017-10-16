@@ -6,6 +6,7 @@ from django.contrib.auth.tokens import default_token_generator
 from django.core.mail import send_mail
 from django.shortcuts import render, redirect, reverse, get_object_or_404
 from django.db.models import Q
+from django.http import HttpResponse, Http404
 from grumblr.models import *
 from grumblr.forms import *
 
@@ -76,21 +77,30 @@ def globalstream(request):
         return render(request, 'grumblr/404.html')
     return render(request, 'grumblr/globalstream.html', context)
 
+# Returns all recent changes to the database, as JSON
+def get_changes(request, time="1970-01-01T00:00+00:00"):
+    max_time = BlogPost.get_max_time()
+    items = BlogPost.get_changes(time)
+    context = {"max_time":max_time, "items":items}
+    return render(request, 'grumblr/items.json', context, content_type='application/json')
+
+
+def get_items(request, time="1970-01-01T00:00+00:00"):
+    max_time = BlogPost.get_max_time()
+    items = BlogPost.get_items(time, request.user)
+    context = {"max_time": max_time, "items": items}
+    return render(request, 'grumblr/items.json', context, content_type='application/json')
+
 
 @login_required
 def add_item(request, page):
-    errors = []  # A list to record messages for any errors we encounter.
-
     # Adds the new item to the database if the request parameter is present
     if not 'item' in request.POST or not request.POST['item']:
-        errors.append('You must enter something.')
+        raise Http404
     else:
         new_item = BlogPost(blog_text=request.POST['item'], user_id=request.user)
         new_item.save()
-    if page == 'profile':
-        return redirect('/profile/' + request.user.username)
-    else:
-        return redirect('/globalstream')
+    return HttpResponse("")
 
 
 def register(request):
