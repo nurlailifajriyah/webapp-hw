@@ -40,14 +40,9 @@ class BlogPost(models.Model):
     def __str__(self):
         return self.__unicode__()
 
-    # Returns all recent additions and deletions
-    @staticmethod
-    def get_changes(time="1970-01-01T00:00+00:00"):
-        return BlogPost.objects.filter(published_time__gt=time).distinct()
-
     # Returns all recent additions
     @staticmethod
-    def get_items(time="1970-01-01T00:00+00:00", username=""):
+    def get_items(time="1970-01-01T00:00+00:00", username=''):
         try:
             following = Following.objects.filter(user=username)
         except ObjectDoesNotExist:
@@ -57,6 +52,11 @@ class BlogPost(models.Model):
 
         return BlogPost.objects.order_by('-published_time').filter(published_time__gt=time).filter(
             Q(user_id__in=following.values_list('follow', flat=True)) | Q(user_id=username)).distinct()
+        # Returns all recent additions
+
+    @staticmethod
+    def get_profile_items(time="1970-01-01T00:00+00:00", username=''):
+        return BlogPost.objects.filter(published_time__gt=time).filter(user_id=username).order_by('-published_time').distinct()
 
     @property
     def html(self):

@@ -77,20 +77,17 @@ def globalstream(request):
         return render(request, 'grumblr/404.html')
     return render(request, 'grumblr/globalstream.html', context)
 
-# Returns all recent changes to the database, as JSON
-def get_changes(request, time="1970-01-01T00:00+00:00"):
-    max_time = BlogPost.get_max_time()
-    items = BlogPost.get_changes(time)
-    context = {"max_time":max_time, "items":items}
-    return render(request, 'grumblr/items.json', context, content_type='application/json')
-
-
 def get_items(request, time="1970-01-01T00:00+00:00"):
     max_time = BlogPost.get_max_time()
     items = BlogPost.get_items(time, request.user)
     context = {"max_time": max_time, "items": items}
     return render(request, 'grumblr/items.json', context, content_type='application/json')
 
+def get_profile_items(request, time="1970-01-01T00:00+00:00"):
+    max_time = BlogPost.get_max_time()
+    items = BlogPost.get_profile_items(time, request.user)
+    context = {"max_time": max_time, "items": items}
+    return render(request, 'grumblr/items.json', context, content_type='application/json')
 
 @login_required
 def add_item(request, page):

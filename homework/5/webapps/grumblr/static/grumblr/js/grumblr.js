@@ -3,7 +3,11 @@ function showCommentArea(){
 }
 
 function populateList() {
-    $.get("/get-items")
+    var pathname = '/get-items';
+    if(window.location.pathname.includes("profile")){
+        pathname = '/get-profile-items';
+    }
+    $.get(pathname)
       .done(function(data) {
           var list = $("#blogpost");
           list.data('max-time', data['max-time']);
@@ -18,17 +22,20 @@ function populateList() {
 }
 
 function getUpdates() {
+    var pathname = '/get-items/';
+    if(window.location.pathname.includes("profile")){
+        pathname = '/get-profile-items/';
+    }
     var list = $("#blogpost")
     var max_time = list.data("max-time")
-    $.get("/get-changes/"+ max_time)
+    $.get(pathname + max_time)
       .done(function(data) {
           list.data('max-time', data['max-time']);
           for (var i = 0; i < data.items.length; i++) {
               var item = data.items[i];
-
                   var new_item = $(item.html); //call html from model.py
                   new_item.data("item-id", item.id);
-                  list.append(new_item);
+                  list.prepend(new_item);
           }
       });
 }
