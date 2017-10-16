@@ -1,0 +1,16 @@
+INSERT INTO sio_student (andrew_id, first_name, last_name) VALUES ('nfajriya', 'Nurlaili', 'Fajriyah');
+INSERT INTO sio_student (andrew_id, first_name, last_name) VALUES ('tralala', 'Tralala', 'Trilili');
+
+select * from sio_student;
+
+select course_name from sio_course;
+
+select * from sio_student where last_name = 'Lee';
+
+select * from sio_student where last_name = 'Lee' order by first_name;
+
+select * from sio_student where first_name LIKE '%ha%'
+
+select count(*) from sio_student where first_name LIKE '%ha%'
+
+select course_id, count(student_id) from sio_course_students group by course_id
