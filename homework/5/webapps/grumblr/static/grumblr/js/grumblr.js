@@ -1,5 +1,5 @@
 function showCommentArea(){
-      window.alert("test")
+
 }
 
 function populateList() {
@@ -66,11 +66,12 @@ function addItem(){
 
 $(document).ready(function () {
   // Add event-handlers
-  $("#add-btn").click(addItem);
-  $("#comment-btn").click(showCommentArea);
+
 
   populateList();
   $("#new_message").focus();
+
+     $("#add-btn").click(addItem);
 
   if(window.location.pathname.includes("profile")){
     window.setInterval(getProfileUpdates, 5000);
@@ -78,6 +79,8 @@ $(document).ready(function () {
    else{
     window.setInterval(getUpdates, 5000);
    }
+
+   $("#blogpost").on('click', "#comment-btn", showCommentArea);
 
   // CSRF set-up copied from Django docs
   function getCookie(name) {

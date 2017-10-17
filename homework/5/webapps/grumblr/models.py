@@ -70,3 +70,15 @@ class BlogPost(models.Model):
     def get_max_time():
         return BlogPost.objects.all().aggregate(Max('published_time'))[
                    'published_time__max'] or "1970-01-01T00:00+00:00"
+
+class Comment(models.Model):
+    comment_text = models.TextField(max_length=42)
+    published_time = models.DateTimeField(auto_now=True)
+    user_id = models.ForeignKey(User, on_delete=models.CASCADE)
+    blogpost_id = models.ForeignKey(BlogPost, on_delete=models.CASCADE)
+
+    def __unicode__(self):
+        return self.comment_text
+
+    def __str__(self):
+        return self.__unicode__()
