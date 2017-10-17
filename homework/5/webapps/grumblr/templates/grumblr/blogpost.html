@@ -21,12 +21,12 @@
                     <p class="panel date-font">{{item.published_time}}</p>
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-2">
-                    <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModal">
+                    <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModal-{{item.id}}">
                         Add Comment
                     </button>
                     <!-- Modal -->
                     <!-- http://getbootstrap.com/docs/3.3/javascript/#modals -->
-                    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal fade" id="myModal-{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -35,14 +35,14 @@
                                     <h4 class="Add Comment" id="myModalLabel">Modal title</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <textarea class="text-post" id="new_comment" name="item" rows="5" maxlength="42"></textarea>
+                                    <textarea class="text-post" id="new_comment-{{item.id}}" name="item" rows="5" maxlength="42"></textarea>
+
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary" data-dismiss="modal" id="comment-btn">Save changes</button>
+                                    <button type="button" class="btn btn-primary comment-btn" data-dismiss="modal" id="{{item.id}}">Submit</button>
                                 </div>
                                 <div id="comments">
-                                    <h1>hfhfhfh </h1>
                                 </div>
                             </div>
                         </div>

@@ -95,6 +95,16 @@ def add_item(request, page):
         new_item.save()
     return HttpResponse("")
 
+@login_required
+def add_comment(request, blogpostid):
+    # Adds the new item to the database if the request parameter is present
+    if not 'item' in request.POST or not request.POST['item']:
+        return redirect('/login')
+    else:
+        blogpost = BlogPost.objects.get(id=blogpostid)
+        new_item = Comment(comment_text=request.POST['item'], user_id=request.user, blogpost_id=blogpost)
+        new_item.save()
+    return HttpResponse("")
 
 def register(request):
     context = {}

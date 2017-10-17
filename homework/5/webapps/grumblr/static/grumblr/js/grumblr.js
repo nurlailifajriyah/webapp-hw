@@ -1,3 +1,4 @@
+
 function showCommentArea(){
 
 }
@@ -19,6 +20,15 @@ function populateList() {
               new_item.data("item-id", item.id);
               list.append(new_item);
           }
+      });
+}
+
+function addItem(){
+    var itemField = $("#new_message");
+    $.post("/add-item/globalstream", {"item": itemField.val()})
+      .done(function(data) {
+          getUpdates();
+          itemField.val("").focus();
       });
 }
 
@@ -55,10 +65,16 @@ function getProfileUpdates() {
           }
       });
 }
-function addItem(){
-    var itemField = $("#new_message");
-    $.post("/add-item/globalstream", {"item": itemField.val()})
+
+function addComment(){
+    var blogpostid = $(this).attr("id");
+    var itemField =  $("#blogpost").find('#new_comment-' + blogpostid)
+
+    alert(blogpostid + " " + itemField.val());
+
+    $.post("/add-comment/" + blogpostid, {"item": itemField.val()})
       .done(function(data) {
+            alert(data);
           getUpdates();
           itemField.val("").focus();
       });
@@ -80,7 +96,7 @@ $(document).ready(function () {
     window.setInterval(getUpdates, 5000);
    }
 
-   $("#blogpost").on('click', "#comment-btn", showCommentArea);
+   $("#blogpost").on('click', ".comment-btn", addComment);
 
   // CSRF set-up copied from Django docs
   function getCookie(name) {
