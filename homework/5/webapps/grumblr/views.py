@@ -78,6 +78,12 @@ def get_items(request, time="1970-01-01T00:00+00:00"):
     context = {"max_time": max_time, "items": items}
     return render(request, 'grumblr/items.json', context, content_type='application/json')
 
+def get_comments(request, blogpostid, time="1970-01-01T00:00+00:00"):
+    max_time = Comment.get_max_time_comment()
+    items = Comment.get_comments(time, blogpostid)
+    context = {"max_time": max_time, "blogpostid":blogpostid,"comments": items}
+    return render(request, 'grumblr/comments.json', context, content_type='application/json')
+
 def get_profile_items(request, time="1970-01-01T00:00+00:00", username=''):
     user = User.objects.get(username=username)
     max_time = BlogPost.get_max_time()
@@ -98,11 +104,11 @@ def add_item(request, page):
 @login_required
 def add_comment(request, blogpostid):
     # Adds the new item to the database if the request parameter is present
-    if not 'item' in request.POST or not request.POST['item']:
+    if not 'comment' in request.POST or not request.POST['comment']:
         return redirect('/login')
     else:
         blogpost = BlogPost.objects.get(id=blogpostid)
-        new_item = Comment(comment_text=request.POST['item'], user_id=request.user, blogpost_id=blogpost)
+        new_item = Comment(comment_text=request.POST['comment'], user_id=request.user, blogpost_id=blogpost)
         new_item.save()
     return HttpResponse("")
 

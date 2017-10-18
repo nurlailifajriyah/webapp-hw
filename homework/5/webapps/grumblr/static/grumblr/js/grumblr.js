@@ -1,8 +1,4 @@
 
-function showCommentArea(){
-
-}
-
 function populateList() {
     var pathname = '/get-items';
     if(window.location.pathname.includes("profile")){
@@ -11,14 +7,28 @@ function populateList() {
     }
     $.get(pathname)
       .done(function(data) {
-          var list = $("#blogpost");
+          var list = $('#blogpost');
           list.data('max-time', data['max-time']);
-          list.html('')
+          list.html('');
           for (var i = 0; i < data.items.length; i++) {
               item = data.items[i];
               var new_item = $(item.html);
               new_item.data("item-id", item.id);
               list.append(new_item);
+              comment_list = null;
+              $.get('/get-comments/' + item.id)
+                  .done(function(data) {
+                      comment_list = $("#blogpost").find('#comments-' + data['blogpostid']);
+                      comment_list.data('max-time', data['max-time']);
+                      for (var j = 0; j < data.comments.length; j++) {
+                          var comment = data.comments[j];
+                              var new_comment = $(comment.html); //call html from model.py
+                              new_comment.data("comment-id", comment.id);
+                             // alert(new_comment);
+                              comment_list.append(new_comment);
+                      }
+                  });
+//                  }
           }
       });
 }
@@ -36,7 +46,6 @@ function getUpdates() {
     var pathname = '/get-items/';
     var list = $("#blogpost")
     var max_time = list.data("max-time")
-
     $.get(pathname + max_time)
       .done(function(data) {
           list.data('max-time', data['max-time']);
@@ -69,14 +78,29 @@ function getProfileUpdates() {
 function addComment(){
     var blogpostid = $(this).attr("id");
     var itemField =  $("#blogpost").find('#new_comment-' + blogpostid)
-
-    alert(blogpostid + " " + itemField.val());
-
-    $.post("/add-comment/" + blogpostid, {"item": itemField.val()})
+    $.post("/add-comment/" + blogpostid, {"comment": itemField.val()})
       .done(function(data) {
-            alert(data);
-          getUpdates();
+          showCommentArea(blogpostid);
           itemField.val("").focus();
+      });
+}
+
+
+function showCommentArea(blogpostid){
+    var pathname = '/get-comments/';
+    var list = $("#blogpost").find('#comments-' + blogpostid)
+    var max_time = list.data("max-time")
+    alert('blogpostid: ' + blogpostid);
+    alert('showmax: ' + max_time);
+    $.get(pathname + blogpostid + '/' + '1970-01-01T00:00+00:00')
+      .done(function(data) {
+          list.data('max-time', data['max-time']);
+          for (var i = 0; i < data.comments.length; i++) {
+              var comment = data.comments[i];
+                  var new_item = $(comment.html); //call html from model.py
+                  new_item.data("comment-id", comment.id);
+                  list.prepend(new_item);
+          }
       });
 }
 
@@ -85,6 +109,7 @@ $(document).ready(function () {
 
 
   populateList();
+
   $("#new_message").focus();
 
      $("#add-btn").click(addItem);

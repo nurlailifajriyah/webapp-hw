@@ -43,8 +43,8 @@ urlpatterns = [
     url(r'^get-profile-items/(?P<username>\w+)$', grumblr.views.get_profile_items),
     url(r'^get-profile-items/(?P<username>\w+)/(?P<time>.+)$', grumblr.views.get_profile_items),
     url(r'^add-comment/(?P<blogpostid>\d+)$', grumblr.views.add_comment),
-
-
+    url(r'^get-comments/(?P<blogpostid>\d+)$', grumblr.views.get_comments),
+    url(r'^get-comments/(?P<blogpostid>\d+)/(?P<time>.+)$', grumblr.views.get_comments),
 ]
 #source: https://docs.djangoproject.com/en/1.11/topics/http/views/
 handler404 = 'grumblr.views.nofoundpage'

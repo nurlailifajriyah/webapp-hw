@@ -82,3 +82,23 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.__unicode__()
+
+    # Returns all recent additions
+    @staticmethod
+    def get_comments(time="1970-01-01T00:00+00:00", blogpostid=''):
+        blogpost = BlogPost.objects.get(id=blogpostid)
+        return Comment.objects.order_by('-published_time').filter(published_time__gt=time).filter(blogpost_id=blogpost).distinct()
+        # Returns all recent additions
+
+    @property
+    def html(self):
+        template = get_template('grumblr/comments.html')
+        context = {}
+        context['comment'] = self
+        # https://djangobook.com/templates-in-views/
+        return template.render(context)
+
+    @staticmethod
+    def get_max_time_comment():
+        return Comment.objects.all().aggregate(Max('published_time'))[
+                   'published_time__max'] or "1970-01-01T00:00+00:00"
