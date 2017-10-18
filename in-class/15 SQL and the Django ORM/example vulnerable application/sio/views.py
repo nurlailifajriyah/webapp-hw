@@ -63,14 +63,16 @@ def register_student(request):
 def get_student_by_name(request):
     first_name = request.GET.get('first_name', '')
 
+    #students = Student.objects.filter(first_name=first_name)
+
     # The normal use of the ORM to get students by first name:
     #students = Student.objects.filter(first_name__exact=first_name)
 
     # The correct way to use raw SQL to get students by first name:
-    #students = Student.objects.raw('select * from uni_student where first_name = %s', [first_name])
+    students = Student.objects.raw('select * from sio_student where first_name = %s', [first_name])
 
     # Gets students by first name, but is vulnerable to SQL injection attacks:
-    students = Student.objects.raw('select * from sio_student where first_name = \'' + first_name + '\'')
+    #students = Student.objects.raw('select * from sio_student [where first_name = \'' + first_name + '\'')
 
     response_text = serializers.serialize('json', students)
     return HttpResponse(response_text, content_type='application/json')
