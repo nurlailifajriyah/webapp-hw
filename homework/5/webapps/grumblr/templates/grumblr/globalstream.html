@@ -1,71 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    {% load static %}
-    <!-- Bootstrap CSS -->
-    <link href="{% static 'grumblr/css/bootstrap.min.css' %}" rel="stylesheet">
-    <!-- Customized CSS -->
-    <link href="{% static 'grumblr/css/bootstrap-grumblr.css' %}" rel="stylesheet">
-    <!-- Favicon -->
-    <link rel="shortcut icon" href="{% static 'grumblr/images/favicon.ico' %}">
-    <!-- Bootstrap Javascript -->
-    <script src="{% static 'grumblr/js/jquery-3.2.1.js' %}"></script>
-    <script src="{% static 'grumblr/js/bootstrap.min.js' %}"></script>
-    <script src="{% static 'grumblr/js/grumblr.js' %}"></script>
-    <title>grumblr</title>
-</head>
-<body>
-<div class="container">
-    <!-- Header -->
-    <div class="row">
-        <div class="col-md-12 col-sm-12 col-xs-12" role="main">
-            <!--http://getbootstrap.com/docs/3.3/components/#navbar-->
-            <nav class="navbar navbar-default">
-                <div class="container-fluid">
-                    <!-- Brand and toggle get grouped for better mobile display -->
-                    <div class="navbar-header">
-                        <ul class="navbar-toggle collapsed" style="background-color: transparent;">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false">
-                                    <img src="{% static 'grumblr/images/profpict.png' %}"
-                                         class="img-responsive" alt="profpict">
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/profile/{{request.user}}">My Profile</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="/finduser">Find Users</a></li>
-                                    <li><a href="/logout">Logout</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-
-                        <a class="navbar-brand" href="/globalstream">Grumblr</a>
-                    </div>
-                    <!-- Collect the nav links, forms, and other content for toggling -->
-                    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"
-                                   aria-haspopup="true" aria-expanded="false">
-                                    <img src="{% static 'grumblr/images/profpict.png' %}" class="img-responsive"
-                                         alt="profpict">
-                                </a>
-                                <ul class="dropdown-menu">
-                                    <li><a href="/profile/{{request.user}}">My Profile</a></li>
-                                    <li><a href="/findusers">Find Users</a></li>
-                                    <li role="separator" class="divider"></li>
-                                    <li><a href="/logout">Logout</a></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    </div><!-- /.navbar-collapse -->
-                </div>
-            </nav>
-        </div> <!-- /.col-md-12 -->
-    </div>
-    {% block profile_header %}{% endblock %}
+{% extends 'grumblr/header_base_afterlogin.html' %}
+{% block content %}
+    {% block profile_header %}{% endblock profile_header %}
     {% if page == 'globalstream' or page == 'profile' and user.username == requester %}
     <!--Text area-->
     <div class="row">
@@ -94,8 +29,5 @@
 <div id="blogpost">
 
 </div>
+{% endblock content %}
 
-</div>
-
-</body>
-</html>
