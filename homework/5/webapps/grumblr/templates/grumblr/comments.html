@@ -1,9 +1,9 @@
 {% load static %}
 <div class="row">
 <div class="col-md-offset-2 col-md-8 col-sm-12  col-xs-12 well" style="padding-bottom:0">
-        <div class="col-md-2 col-sm-2 col-xs-2">
+        <div class="col-md-3 col-sm-3 col-xs-3">
             <a href="/profile/{{comment.user_id}}">
-                <img src="" class="img-responsive"
+                <img src="{% static comment.user_id.userinfo.profile_picture %}" class="img-responsive"
                      alt="profpict">
             </a>
         </div>

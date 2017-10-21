@@ -90,8 +90,6 @@ function showCommentArea(blogpostid){
     var pathname = '/get-comments/';
     var list = $("#blogpost").find('#comments-' + blogpostid)
     var max_time = list.data("max-time")
-    alert('blogpostid: ' + blogpostid);
-    alert('showmax: ' + max_time);
     $.get(pathname + blogpostid + '/' + '1970-01-01T00:00+00:00')
       .done(function(data) {
           list.data('max-time', data['max-time']);
@@ -112,7 +110,8 @@ $(document).ready(function () {
 
   $("#new_message").focus();
 
-     $("#add-btn").click(addItem);
+  $("#add-btn").click(addItem);
+
 
   if(window.location.pathname.includes("profile")){
     window.setInterval(getProfileUpdates, 5000);
