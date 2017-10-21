@@ -24,7 +24,6 @@ function populateList() {
                           var comment = data.comments[j];
                               var new_comment = $(comment.html); //call html from model.py
                               new_comment.data("comment-id", comment.id);
-                             // alert(new_comment);
                               comment_list.append(new_comment);
                       }
                   });
@@ -90,7 +89,7 @@ function showCommentArea(blogpostid){
     var pathname = '/get-comments/';
     var list = $("#blogpost").find('#comments-' + blogpostid)
     var max_time = list.data("max-time")
-    $.get(pathname + blogpostid + '/' + '1970-01-01T00:00+00:00')
+    $.get(pathname + blogpostid + '/' + max_time)
       .done(function(data) {
           list.data('max-time', data['max-time']);
           for (var i = 0; i < data.comments.length; i++) {
