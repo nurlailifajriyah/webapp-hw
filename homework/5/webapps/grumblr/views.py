@@ -101,12 +101,10 @@ def add_item(request, page):
     context['form'] = form
 
     if not form.is_valid():
-        context['errors'] = 'You must enter an item to add.'
         return render(request, 'grumblr/globalstream.html', context)
 
     else:
-        context['errors'] = 'woi'
-        new_item = BlogPost(blog_text=request.POST['blog_text'], user_id=request.user)
+        new_item = BlogPost(blog_text=form.cleaned_data['blog_text'], user_id=request.user)
         new_item.save()
     return HttpResponse("")
 
