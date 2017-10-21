@@ -33,8 +33,8 @@ function populateList() {
 }
 
 function addItem(){
-    var itemField = $("#new_message");
-    $.post("/add-item/globalstream", {"item": itemField.val()})
+    var itemField = $("#id_blog_text");
+    $.post("/add-item/globalstream", {"blog_text": itemField.val()})
       .done(function(data) {
           getUpdates();
           itemField.val("").focus();

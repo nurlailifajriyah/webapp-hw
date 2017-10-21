@@ -116,3 +116,13 @@ class ForgotPasswordForm(forms.ModelForm):
         widgets = {
             'username': forms.TextInput(attrs={'class': 'form-control'}),
         }
+
+class AddItemForm(forms.ModelForm):
+    class Meta:
+        model = BlogPost
+        fields = ('blog_text',)
+        widgets = {
+            'blog_text': forms.TextInput(attrs={'class': 'form-control'}),
+        }
+    def clean(self):
+        return super(AddItemForm, self).clean()

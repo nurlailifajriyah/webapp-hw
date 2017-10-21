@@ -62,6 +62,9 @@ def globalstream(request):
     context = {}
     context['page'] = "globalstream"
     context['requester'] = request.user.username
+    if request.method == 'GET':
+        context['form'] = AddItemForm()
+        return render(request, 'grumblr/globalstream.html', context)
     try:
         following = Following.objects.filter(user=request.user)
     except ObjectDoesNotExist:
@@ -93,11 +96,17 @@ def get_profile_items(request, time="1970-01-01T00:00+00:00", username=''):
 
 @login_required
 def add_item(request, page):
-    # Adds the new item to the database if the request parameter is present
-    if not 'item' in request.POST or not request.POST['item']:
-        raise Http404
+    context = {}
+    form = AddItemForm(request.POST)
+    context['form'] = form
+
+    if not form.is_valid():
+        context['errors'] = 'You must enter an item to add.'
+        return render(request, 'grumblr/globalstream.html', context)
+
     else:
-        new_item = BlogPost(blog_text=request.POST['item'], user_id=request.user)
+        context['errors'] = 'woi'
+        new_item = BlogPost(blog_text=request.POST['blog_text'], user_id=request.user)
         new_item.save()
     return HttpResponse("")
 
@@ -121,12 +130,14 @@ def register(request):
 
     form = RegistrationForm(request.POST)
     context['form'] = form
+
     if not form.is_valid():
         return render(request, 'grumblr/register.html', context)
 
-    new_user = User.objects.create_user(username=request.POST['username'], password=request.POST['password1'],
-                                        email=request.POST['email'],
-                                        first_name=request.POST['first_name'], last_name=request.POST['last_name'],
+
+    new_user = User.objects.create_user(username=form.cleaned_data['username'], password=form.cleaned_data['password1'],
+                                        email=form.cleaned_data['email'],
+                                        first_name=form.cleaned_data['first_name'], last_name=form.cleaned_data['last_name'],
                                         is_active=False)
     new_user.save()
     token = default_token_generator.make_token(new_user)
@@ -246,10 +257,10 @@ def editprofile(request, username):
         context['form2'] = form2
         return render(request, 'grumblr/editprofile.html', context)
 
-    user.email = request.POST['email']
-    user.first_name = request.POST['first_name']
-    user.last_name = request.POST['last_name']
-    user.set_password(request.POST['password1'])
+    user.email = form.cleaned_data['email']
+    user.first_name = form.cleaned_data['first_name']
+    user.last_name = form.cleaned_data['last_name']
+    user.set_password(form.cleaned_data['password1'])
 
     if not form2.is_valid:
         context['form'] = form
@@ -267,7 +278,7 @@ def forgotpassword(request):
         context['form'] = ForgotPasswordForm()
         return render(request, 'grumblr/forgotpassword.html', context)
     try:
-        user = User.objects.get(username=request.POST['username'])
+        user = User.objects.get(username=form.cleaned_data['username'])
     except ObjectDoesNotExist:
         context['message'] = "Username does not exist."
         return render(request, 'grumblr/forgotpassword.html', context)
@@ -314,7 +325,7 @@ def resetpassword(request, username, token):
         context['message'] = 'not valid'
         return render(request, 'grumblr/resetpassword.html', context)
 
-    user.set_password(request.POST['password1'])
+    user.set_password(form.cleaned_data['password1'])
     user.save()
 
     context['message'] = 'Reset password success. Please login again.'
