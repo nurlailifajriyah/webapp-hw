@@ -37,7 +37,6 @@ urlpatterns = [
     url(r'^editprofile/(?P<username>\w+)$',grumblr.views.editprofile),
     url(r'^forgotpassword$', grumblr.views.forgotpassword),
     url(r'^resetrequest/(?P<username>\w+)/(?P<token>\S+)$', grumblr.views.resetpassword, name='resetpassword'),
-    url(r'^findusers/$', grumblr.views.findusers),
     url(r'^get-items/?$', grumblr.views.get_items),
     url(r'^get-items/(?P<time>.+)$', grumblr.views.get_items),
     url(r'^get-profile-items/(?P<username>\w+)$', grumblr.views.get_profile_items),

@@ -1,4 +1,5 @@
 {% extends 'grumblr/header_base_afterlogin.html' %}
+{% block title %}Grumblr | Global Stream{% endblock %}
 {% block content %}
     {% block profile_header %}{% endblock profile_header %}
     {% if page == 'globalstream' or page == 'profile' and user.username == requester %}
@@ -20,11 +21,6 @@
         </div>
     </div>
     {% endif %}
-    {% if page == 'globalstream' and items.count <= 0 %}
-    <div class="col-md-offset-2 col-md-8 col-sm-12  col-xs-12 well" style="padding-bottom:0">
-        <a href="/findusers"><h4>Find some friends?</h4></a></div>
-</div>
-{% endif %}
     <!--One blog post-->
 <div id="blogpost">
 

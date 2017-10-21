@@ -13,7 +13,7 @@
     <script src="{% static 'grumblr/js/jquery-3.2.1.js' %}"></script>
     <script src="{% static 'grumblr/js/bootstrap.min.js' %}"></script>
     <script src="{% static 'grumblr/js/grumblr.js' %}"></script>
-    <title>grumblr</title>
+    <title>{% block title %}{% endblock %}</title>
 </head>
 <body>
 <div class="container">
@@ -41,7 +41,7 @@
                             </li>
                         </ul>
 
-                        <a class="navbar-brand" href="globalstream">Grumblr</a>
+                        <a class="navbar-brand" href="/globalstream">Grumblr</a>
                     </div>
                     <!-- Collect the nav links, forms, and other content for toggling -->
                     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -54,7 +54,6 @@
                                 </a>
                                 <ul class="dropdown-menu">
                                     <li><a href="/profile/{{request.user}}">My Profile</a></li>
-                                    <li><a href="/findusers">Find Users</a></li>
                                     <li role="separator" class="divider"></li>
                                     <li><a href="/logout">Logout</a></li>
                                 </ul>

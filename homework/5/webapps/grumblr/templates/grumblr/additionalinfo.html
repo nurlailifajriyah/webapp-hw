@@ -1,4 +1,5 @@
 {% extends 'grumblr/form_base.html' %}
+{% block title %}Grumblr | Additional Info{% endblock %}
 {% block content %}
                     <form method="POST" action="/additionalinfo" enctype="multipart/form-data">
                         {% for field in form.visible_fields %}

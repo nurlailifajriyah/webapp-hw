@@ -1,4 +1,5 @@
 {% extends 'grumblr/form_base.html' %}
+{% block title %}Grumblr | Edit Profile{% endblock %}
 {% block content %}
                     <form method="post" action="/editprofile/{{request.user}}" enctype="multipart/form-data">
                         {% for field in form.visible_fields %}
