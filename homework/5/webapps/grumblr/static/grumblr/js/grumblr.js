@@ -50,11 +50,25 @@ function getUpdates() {
           list.data('max-time', data['max-time']);
           for (var i = 0; i < data.items.length; i++) {
               var item = data.items[i];
-                  var new_item = $(item.html); //call html from model.py
-                  new_item.data("item-id", item.id);
-                  list.prepend(new_item);
+              var new_item = $(item.html); //call html from model.py
+              new_item.data("item-id", item.id);
+              list.prepend(new_item);
+
+              comment_list = null;
+              $.get('/get-comments/' + item.id)
+                  .done(function(data) {
+                      comment_list = $("#blogpost").find('#comments-' + data['blogpostid']);
+                      comment_list.data('max-time', data['max-time']);
+                      for (var j = 0; j < data.comments.length; j++) {
+                          var comment = data.comments[j];
+                              var new_comment = $(comment.html); //call html from model.py
+                              new_comment.data("comment-id", comment.id);
+                              comment_list.append(new_comment);
+                      }
+                  });
           }
       });
+
 }
 function getProfileUpdates() {
     var paths = window.location.pathname.split('/')
@@ -87,8 +101,9 @@ function addComment(){
 
 function showCommentArea(blogpostid){
     var pathname = '/get-comments/';
-    var list = $("#blogpost").find('#comments-' + blogpostid)
+    var list = $("#blogpost").find('#comments-' + blogpostid);
     var max_time = list.data("max-time")
+
     $.get(pathname + blogpostid + '/' + max_time)
       .done(function(data) {
           list.data('max-time', data['max-time']);
