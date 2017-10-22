@@ -15,36 +15,10 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
-from django.contrib.auth.views import login, logout_then_login
-
-import grumblr.views
-
+from grumblr import urls
 
 urlpatterns = [
-    url(r'^$', grumblr.views.home),
+    url(r'^', include(urls)),
     url(r'^admin', admin.site.urls),
-    url(r'^loginsuccess/$', grumblr.views.loginsuccess),
-    url(r'^globalstream$',grumblr.views.globalstream),
-    url(r'^add-item/(?P<page>\w+)$',grumblr.views.add_item),
-    url(r'^profile/(?P<username>\w+)$',grumblr.views.profile),
-    url(r'^login$', grumblr.views.custom_login, {'template_name': 'grumblr/loginpage.html'}, name='login'),
-    url(r'^logout$', logout_then_login),
-    url(r'^register$', grumblr.views.register),
-    url(r'^additionalinfo$', grumblr.views.additionalinfo),
-    url(r'^confirm/(?P<username>\w+)/(?P<token>\S+)$', grumblr.views.confirm_registration, name='confirm_registration'),
-    url(r'^follow/(?P<username>\w+)$',grumblr.views.follow),
-    url(r'^unfollow/(?P<username>\w+)$',grumblr.views.unfollow),
-    url(r'^editprofile/(?P<username>\w+)$',grumblr.views.editprofile),
-    url(r'^forgotpassword$', grumblr.views.forgotpassword),
-    url(r'^resetrequest/(?P<username>\w+)/(?P<token>\S+)$', grumblr.views.resetpassword, name='resetpassword'),
-    url(r'^get-items/?$', grumblr.views.get_items),
-    url(r'^get-items/(?P<time>.+)$', grumblr.views.get_items),
-    url(r'^get-profile-items/(?P<username>\w+)$', grumblr.views.get_profile_items),
-    url(r'^get-profile-items/(?P<username>\w+)/(?P<time>.+)$', grumblr.views.get_profile_items),
-    url(r'^add-comment/(?P<blogpostid>\d+)$', grumblr.views.add_comment),
-    url(r'^get-comments/(?P<blogpostid>\d+)$', grumblr.views.get_comments),
-    url(r'^get-comments/(?P<blogpostid>\d+)/(?P<time>.+)$', grumblr.views.get_comments),
 ]
-#source: https://docs.djangoproject.com/en/1.11/topics/http/views/
-handler404 = 'grumblr.views.nofoundpage'
-handler500 = 'grumblr.views.nofoundpage'
+
