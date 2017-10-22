@@ -27,7 +27,6 @@ function populateList() {
                               comment_list.append(new_comment);
                       }
                   });
-//                  }
           }
       });
 }
@@ -117,15 +116,12 @@ function showCommentArea(blogpostid){
 }
 
 $(document).ready(function () {
-  // Add event-handlers
-
 
   populateList();
 
   $("#new_message").focus();
 
   $("#add-btn").click(addItem);
-
 
   if(window.location.pathname.includes("profile")){
     window.setInterval(getProfileUpdates, 5000);

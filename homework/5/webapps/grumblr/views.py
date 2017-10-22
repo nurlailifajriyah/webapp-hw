@@ -11,9 +11,6 @@ from grumblr.models import *
 from grumblr.forms import *
 from django.contrib.auth.views import login, logout_then_login
 
-
-
-# Create your views here.
 def home(request):
     if request.user.is_authenticated():
         return redirect('/globalstream')

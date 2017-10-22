@@ -2,16 +2,12 @@
 {% block title %}Grumblr | Global Stream{% endblock %}
 {% block content %}
     {% block profile_header %}{% endblock profile_header %}
-    {% if page == 'globalstream' or page == 'profile' and user.username == requester %}
+    {% if page == 'globalstream' %}
     <!--Text area-->
     <div class="row">
         <div class="col-md-offset-2 col-md-8 col-md-offset-2 well" style="padding-bottom:0">
             <form accept-charset="UTF-8">
                 <div class="row">
-
-           <!-- <textarea class="col-md-offset-1 col-md-11 text-post" id="new_message" name="item"
-                      placeholder="What's on your mind?" rows="5" maxlength="42"></textarea>
-                   -->
                     {% for field in form.visible_fields %}
                         <div class="form-group col-md-offset-1 col-md-11 text-post" id="new_message" name="item">
                             <div>{{field}}</div>
