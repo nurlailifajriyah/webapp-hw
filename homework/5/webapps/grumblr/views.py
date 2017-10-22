@@ -9,6 +9,8 @@ from django.db.models import Q
 from django.http import HttpResponse, Http404
 from grumblr.models import *
 from grumblr.forms import *
+from django.contrib.auth.views import login, logout_then_login
+
 
 
 # Create your views here.
@@ -124,6 +126,9 @@ def add_comment(request, blogpostid):
     return HttpResponse("")
 
 def register(request):
+    if request.user.is_authenticated():
+        return redirect('/globalstream')
+
     context = {}
 
     if request.method == 'GET':
@@ -178,6 +183,10 @@ def confirm_registration(request, username, token):
     context['message'] = "Verification success. Now, you can login to your Gumblr."
     return render(request, 'grumblr/loginpage.html', context)
 
+def custom_login(request, **kwargs):
+    if request.user.is_authenticated():
+        return redirect('/globalstream')
+    return login(request, **kwargs)
 
 def loginsuccess(request):
     try:

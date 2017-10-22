@@ -27,7 +27,7 @@ urlpatterns = [
     url(r'^globalstream$',grumblr.views.globalstream),
     url(r'^add-item/(?P<page>\w+)$',grumblr.views.add_item),
     url(r'^profile/(?P<username>\w+)$',grumblr.views.profile),
-    url(r'^login$', login, {'template_name': 'grumblr/loginpage.html'}, name='login'),
+    url(r'^login$', grumblr.views.custom_login, {'template_name': 'grumblr/loginpage.html'}, name='login'),
     url(r'^logout$', logout_then_login),
     url(r'^register$', grumblr.views.register),
     url(r'^additionalinfo$', grumblr.views.additionalinfo),
