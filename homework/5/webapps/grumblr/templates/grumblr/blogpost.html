@@ -1,6 +1,6 @@
 {% load static %}
 <div class="row">
-<div class="col-md-offset-2 col-md-8 col-sm-12  col-xs-12 well" style="padding-bottom:0">
+    <div class="col-md-offset-2 col-md-8 col-sm-12  col-xs-12 well" style="padding-bottom:0">
         <div class="col-md-2 col-sm-2 col-xs-2">
             <a href="/profile/{{item.user_id}}">
                 <img src="{% static item.user_id.userinfo.profile_picture %}" class="img-responsive"
@@ -21,12 +21,14 @@
                     <p class="panel date-font">{{item.published_time}}</p>
                 </div>
                 <div class="col-md-2 col-sm-2 col-xs-2">
-                    <button type="button" class="btn btn-default btn-xs" data-toggle="modal" data-target="#myModal-{{item.id}}">
+                    <button type="button" class="btn btn-default btn-xs" data-toggle="modal"
+                            data-target="#myModal-{{item.id}}">
                         Add Comment
                     </button>
                     <!-- Modal -->
                     <!-- http://getbootstrap.com/docs/3.3/javascript/#modals -->
-                    <div class="modal fade" id="myModal-{{item.id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                    <div class="modal fade" id="myModal-{{item.id}}" tabindex="-1" role="dialog"
+                         aria-labelledby="myModalLabel">
                         <div class="modal-dialog" role="document">
                             <div class="modal-content">
                                 <div class="modal-header">
@@ -35,12 +37,18 @@
                                     <h4 class="Add Comment" id="myModalLabel">Add Comment</h4>
                                 </div>
                                 <div class="modal-body">
-                                    <textarea class="text-post" id="new_comment-{{item.id}}" name="item" rows="8" maxlength="42"></textarea>
-
+                                    {% for field in form.visible_fields %}
+                                        <div>{{field}}</div>
+                                        {{field.errors}}
+                                    {% endfor %}
+                                    {% for field in form.hidden_fields %}
+                                    {{field}}
+                                    {% endfor %}
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary comment-btn" id="{{item.id}}">Submit</button>
+                                    <button type="button" class="btn btn-primary comment-btn" id="{{item.id}}">Submit
+                                    </button>
                                 </div>
                                 <div id="comments-{{item.id}}">
                                 </div>
@@ -50,5 +58,5 @@
                 </div>
             </div>
         </div>
-</div>
     </div>
+</div>

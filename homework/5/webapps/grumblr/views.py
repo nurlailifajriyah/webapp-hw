@@ -110,12 +110,16 @@ def add_item(request, page):
 
 @login_required
 def add_comment(request, blogpostid):
-    # Adds the new item to the database if the request parameter is present
-    if not 'comment' in request.POST or not request.POST['comment']:
-        return redirect('/login')
+    context = {}
+    form = AddCommentForm(request.POST, id=blogpostid)
+    context['form'] = form
+
+    if not form.is_valid():
+        return render(request, 'grumblr/globalstream.html', context)
+
     else:
         blogpost = BlogPost.objects.get(id=blogpostid)
-        new_item = Comment(comment_text=request.POST['comment'], user_id=request.user, blogpost_id=blogpost)
+        new_item = Comment(comment_text=form.cleaned_data['comment_text'], user_id=request.user, blogpost_id=blogpost)
         new_item.save()
     return HttpResponse("")
 

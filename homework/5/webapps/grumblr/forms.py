@@ -122,7 +122,8 @@ class AddItemForm(forms.ModelForm):
         model = BlogPost
         fields = ('blog_text',)
         widgets = {
-            'blog_text': forms.TextInput(attrs={'class': 'form-control'}),
+            'blog_text': forms.Textarea(attrs={'class': 'col-md-offset-1 col-md-11 text-post', 'rows':'5', 'maxlength':'42', 'placeholder':'What\'s on your mind?'}),
         }
     def clean(self):
         return super(AddItemForm, self).clean()
+

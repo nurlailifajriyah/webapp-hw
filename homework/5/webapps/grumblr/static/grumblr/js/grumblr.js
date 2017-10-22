@@ -77,7 +77,7 @@ function getProfileUpdates() {
 function addComment(){
     var blogpostid = $(this).attr("id");
     var itemField =  $("#blogpost").find('#new_comment-' + blogpostid)
-    $.post("/add-comment/" + blogpostid, {"comment": itemField.val()})
+    $.post("/add-comment/" + blogpostid, {"comment_text": itemField.val()})
       .done(function(data) {
           showCommentArea(blogpostid);
           itemField.val("").focus();

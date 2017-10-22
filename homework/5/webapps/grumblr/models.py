@@ -1,12 +1,10 @@
 # -*- coding: utf-8 -*-
 from django.db import models
-from django.utils import timezone
 from django.contrib.auth.models import User
-from django.shortcuts import render
 from django.db.models import Max
-from django.utils.html import escape
 from django.template.loader import get_template
 from django.db.models import Q
+from django import forms
 
 
 class RegToken(models.Model):
@@ -30,7 +28,7 @@ class Following(models.Model):
 
 
 class BlogPost(models.Model):
-    blog_text = models.TextField(max_length=42)
+    blog_text = models.CharField(max_length=42)
     published_time = models.DateTimeField(auto_now=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
 
@@ -63,6 +61,7 @@ class BlogPost(models.Model):
         template = get_template('grumblr/blogpost.html')
         context = {}
         context['item'] = self
+        context['form'] = AddCommentForm(id=self.id)
         # https://djangobook.com/templates-in-views/
         return template.render(context)
 
@@ -72,7 +71,7 @@ class BlogPost(models.Model):
                    'published_time__max'] or "1970-01-01T00:00+00:00"
 
 class Comment(models.Model):
-    comment_text = models.TextField(max_length=42)
+    comment_text = models.CharField(max_length=42)
     published_time = models.DateTimeField(auto_now=True)
     user_id = models.ForeignKey(User, on_delete=models.CASCADE)
     blogpost_id = models.ForeignKey(BlogPost, on_delete=models.CASCADE)
@@ -102,3 +101,18 @@ class Comment(models.Model):
     def get_max_time_comment():
         return Comment.objects.all().aggregate(Max('published_time'))[
                    'published_time__max'] or "1970-01-01T00:00+00:00"
+
+#https://docs.djangoproject.com/en/1.11/topics/forms/modelforms/
+class AddCommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ('comment_text',)
+
+    def clean(self):
+        return super(AddCommentForm, self).clean()
+
+    def __init__(self, *args, **kwargs):
+        self.blogpost_id = kwargs.pop('id')
+        super(AddCommentForm, self).__init__(*args, **kwargs)
+
+        self.fields['comment_text'].widget = forms.Textarea(attrs={'class': 'text-post', 'rows':'5', 'maxlength':'42', 'id':'new_comment-' + str(self.blogpost_id)})
