@@ -1,5 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import BaseUserManager
+import random, string
+import hashlib
+from django.utils.crypto import get_random_string
 
 class UserManager(BaseUserManager):
     def create_user(self, username, password):
@@ -15,10 +18,18 @@ class User(models.Model):
     last_login = models.DateField(auto_now_add=True)
 
     def set_password(self, password):
-        self.password = password # TODO: Very insecure! Stores password in clear-text.
+        hashObject = hashlib.sha256()
+        salt = get_random_string(256)
+        hashObject.update(password + salt)
+        new_password = hashObject.hexdigest()
+        self.password = salt + '$' + new_password # TODO: Very insecure! Stores password in clear-text.
 
     def check_password(self, password):
-        return password == self.password # Check user-typed password vs. stored password.
+        hashObject = hashlib.sha256()
+        salt = self.password.split('$')[0]
+        hashObject.update(password + salt)
+        hashed_password = hashObject.hexdigest()
+        return (salt + '$' + hashed_password) == self.password # Check user-typed password vs. stored password.
 
     def __unicode__(self):
         return self.username
