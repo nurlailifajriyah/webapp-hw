@@ -10,6 +10,8 @@ from django.http import HttpResponse, Http404
 from grumblr.models import *
 from grumblr.forms import *
 from django.contrib.auth.views import login, logout_then_login
+from django.contrib.auth import update_session_auth_hash
+
 
 def home(request):
     if request.user.is_authenticated():
@@ -169,12 +171,10 @@ def confirm_registration(request, username, token):
         user = User.objects.get(username=username)
     except ObjectDoesNotExist:
         return render(request, 'grumblr/404.html', context)
-    try:
-        tokens = RegToken.objects.filter(user_id=user, token=token)
-        if (tokens.count() <= 0):
-            return render(request, 'grumblr/404.html', context)
-    except ObjectDoesNotExist:
+
+    if not default_token_generator.check_token(user, token):
         return render(request, 'grumblr/404.html', context)
+
     user.is_active = True
     user.save()
     context['message'] = "Verification success. Now, you can login to your Gumblr."
@@ -260,6 +260,7 @@ def editprofile(request, username):
 
     form = EditProfileForm(request.POST)
     form2 = AdditionalInfoForm(request.POST, request.FILES, instance=userinfo)
+
     if not form.is_valid():
         context['form'] = form
         context['form2'] = form2
@@ -270,12 +271,17 @@ def editprofile(request, username):
     user.last_name = form.cleaned_data['last_name']
     user.set_password(form.cleaned_data['password1'])
 
-    if not form2.is_valid:
+    if not form2.is_valid():
         context['form'] = form
         context['form2'] = form2
         return render(request, 'grumblr/editprofile.html', context)
+
     form2.save()
     user.save()
+
+    request.user.set_password(form.cleaned_data['password1'])
+    update_session_auth_hash(request, request.user)
+
     context['message'] = 'Edit profile success. Please login again.'
     return render(request, 'grumblr/loginpage.html', context)
 
@@ -286,7 +292,7 @@ def forgotpassword(request):
         context['form'] = ForgotPasswordForm()
         return render(request, 'grumblr/forgotpassword.html', context)
     try:
-        user = User.objects.get(username=form.cleaned_data['username'])
+        user = User.objects.get(username=request.POST['username'])
     except ObjectDoesNotExist:
         context['message'] = "Username does not exist."
         return render(request, 'grumblr/forgotpassword.html', context)
@@ -315,11 +321,7 @@ def resetpassword(request, username, token):
     except ObjectDoesNotExist:
         return render(request, 'grumblr/404.html', context)
     form = ResetPasswordForm()
-    try:
-        tokens = RegToken.objects.filter(user_id=user, token=token)
-        if (tokens.count() <= 0):
-            return render(request, 'grumblr/404.html', context)
-    except ObjectDoesNotExist:
+    if not default_token_generator.check_token(user, token):
         return render(request, 'grumblr/404.html', context)
     context['form'] = form
     context['username'] = username
