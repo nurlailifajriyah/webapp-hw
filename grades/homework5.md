@@ -6,11 +6,9 @@ Commit graded: 8f7ef0d88491b74667087136e54123e2771a5996
 
 ### Incremental development using Git (10/10)
 
-### Fulfilling the grumblr specification (10/20)
+### Fulfilling the grumblr specification (17/20)
 
--3, Can't see other user's posts in the globalstream page.
-
--7, Page syncing is not testable for the above reason.
+-3, There is no explicit user interface to lead user to follow others.
 
 ### Input validation (17/20)
 
@@ -27,6 +25,6 @@ Commit graded: 8f7ef0d88491b74667087136e54123e2771a5996
 ### Additional Information
 
 ---
-#### Total score (87/100)
+#### Total score (94/100)
 ---
 Graded by: Yiyun Yao (yiyuny@andrew.cmu.edu)
