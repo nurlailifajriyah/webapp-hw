@@ -11,7 +11,7 @@ from grumblr.models import *
 from grumblr.forms import *
 from django.contrib.auth.views import login, logout_then_login
 from django.contrib.auth import update_session_auth_hash
-from django.utils.dateparse import parse_datetime
+from dateutil import parser
 
 
 def home(request):
@@ -77,9 +77,10 @@ def globalstream(request):
         Q(user_id__in=following.values_list('follow', flat=True)) | Q(user_id=request.user))
     return render(request, 'grumblr/globalstream.html', context)
 
+@login_required
 def get_items(request, time="1970-01-01T00:00+00:00"):
     try:
-        parse_datetime(time)
+        parser.parse(time)
     except:
         time = "1970-01-01T00:00+00:00"
     max_time = BlogPost.get_max_time()
@@ -87,24 +88,35 @@ def get_items(request, time="1970-01-01T00:00+00:00"):
     context = {"max_time": max_time, "items": items}
     return render(request, 'grumblr/items.json', context, content_type='application/json')
 
+@login_required
 def get_comments(request, blogpostid, time="1970-01-01T00:00+00:00"):
     try:
-        parse_datetime(time)
+        parser.parse(time)
     except:
         time = "1970-01-01T00:00+00:00"
     max_time = Comment.get_max_time_comment()
-    items = Comment.get_comments(time, blogpostid)
+    try:
+        items = Comment.get_comments(time, blogpostid)
+    except ObjectDoesNotExist:
+        items = []
     context = {"max_time": max_time, "blogpostid":blogpostid,"comments": items}
     return render(request, 'grumblr/comments.json', context, content_type='application/json')
 
+@login_required
 def get_profile_items(request, time="1970-01-01T00:00+00:00", username=''):
     try:
-        parse_datetime(time)
+        parser.parse(time)
     except:
         time = "1970-01-01T00:00+00:00"
-    user = User.objects.get(username=username)
+    try:
+        user = User.objects.get(username=username)
+    except ObjectDoesNotExist:
+        user = request.user
     max_time = BlogPost.get_max_time()
-    items = BlogPost.get_profile_items(time, user)
+    try:
+        items = BlogPost.get_profile_items(time, user)
+    except:
+        items = []
     context = {"max_time": max_time, "items": items}
     return render(request, 'grumblr/items.json', context, content_type='application/json')
 

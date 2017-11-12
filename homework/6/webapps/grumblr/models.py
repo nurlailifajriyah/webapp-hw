@@ -5,6 +5,7 @@ from django.db.models import Max
 from django.template.loader import get_template
 from django.db.models import Q
 from django import forms
+from django.core.exceptions import ObjectDoesNotExist, FieldDoesNotExist
 
 
 class RegToken(models.Model):
