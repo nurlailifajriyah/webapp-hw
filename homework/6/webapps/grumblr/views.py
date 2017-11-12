@@ -11,6 +11,7 @@ from grumblr.models import *
 from grumblr.forms import *
 from django.contrib.auth.views import login, logout_then_login
 from django.contrib.auth import update_session_auth_hash
+from django.utils.dateparse import parse_datetime
 
 
 def home(request):
@@ -77,18 +78,30 @@ def globalstream(request):
     return render(request, 'grumblr/globalstream.html', context)
 
 def get_items(request, time="1970-01-01T00:00+00:00"):
+    try:
+        parse_datetime(time)
+    except:
+        time = "1970-01-01T00:00+00:00"
     max_time = BlogPost.get_max_time()
     items = BlogPost.get_items(time, request.user)
     context = {"max_time": max_time, "items": items}
     return render(request, 'grumblr/items.json', context, content_type='application/json')
 
 def get_comments(request, blogpostid, time="1970-01-01T00:00+00:00"):
+    try:
+        parse_datetime(time)
+    except:
+        time = "1970-01-01T00:00+00:00"
     max_time = Comment.get_max_time_comment()
     items = Comment.get_comments(time, blogpostid)
     context = {"max_time": max_time, "blogpostid":blogpostid,"comments": items}
     return render(request, 'grumblr/comments.json', context, content_type='application/json')
 
 def get_profile_items(request, time="1970-01-01T00:00+00:00", username=''):
+    try:
+        parse_datetime(time)
+    except:
+        time = "1970-01-01T00:00+00:00"
     user = User.objects.get(username=username)
     max_time = BlogPost.get_max_time()
     items = BlogPost.get_profile_items(time, user)
