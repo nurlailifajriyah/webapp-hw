@@ -25,7 +25,7 @@ SECRET_KEY = 'n)85m5c!=+pqg%5o3_&!@2fk!1q%p2!_^rbo36cbz_5g3(2-xi'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', 'agile-coast-49990.herokuapp.com']
+ALLOWED_HOSTS = ['agile-coast-49990.herokuapp.com', 'localhost']
 
 
 # Application definition
@@ -133,7 +133,13 @@ MEDIA_ROOT = BASE_DIR + '/grumblr/media/'
 
 MEDIA_URL = '/grumblr/media/'
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_HOST_USER = os.environ['SENDGRID_USERNAME']
+EMAIL_HOST_PASSWORD = os.environ['SENDGRID_PASSWORD']
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 

@@ -372,3 +372,4 @@ def findusers(request):
     users = User.objects.exclude(username=request.user.username).order_by('username')
     context['users'] = users
     return render(request, 'grumblr/findusers.html', context)
+
