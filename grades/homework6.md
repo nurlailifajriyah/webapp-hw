@@ -16,7 +16,7 @@ Commit graded: 72a2039385f219d6614b4fbfd0d70b5da9c43f06
 ### Responding to hw5 feedback (20/20)
 
 ---
-#### Total score (58/80)
+#### Total score (63/80)
 ---
 Graded by: Sheng Qian (sqian@andrew.cmu.edu)
 
