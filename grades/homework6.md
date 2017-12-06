@@ -13,9 +13,7 @@ Commit graded: 72a2039385f219d6614b4fbfd0d70b5da9c43f06
 
 -10, The data should be stored in a relational database that is not SQLite. SQLite is a lightweight database that can not handle production-level load. For example, SQLite does not allow for concurrent access of data, which would mean that multiple users would not be able to use your site. In your readme, you said you are using postgres, however, in your settings.py it's still sqlite.
 
-### Responding to hw5 feedback (15/20)
-
--5, Looks like your post cannot be saved on your server.
+### Responding to hw5 feedback (20/20)
 
 ---
 #### Total score (58/80)
