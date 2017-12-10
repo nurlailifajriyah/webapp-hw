@@ -1,0 +1,24 @@
+#Peer Review 
+
+a. In your private estimation, what fraction of the overall project did each team member
+complete? These fractions should total 100%. If you are on a two-person team and you
+believe you both contributed equally, for example, your answer should be 50% for both
+team members.
+
+Nurlaili: 30%
+Mook: 30%
+Omoefe: 17%
+Rushab: 23%
+
+
+b. Positively evaluate your own contributions to your project, without mentioning your
+teammates in any way.
+
+I think I contributed pretty well for the project. I implemented some key features of the 
+website and helped other teammates too. From my perspective, the team dynamics was good 
+although the contributions were not equal. However, I do not think we have any conflicts. 
+We communicated all problems through WhatsApp group and face-to-face meeting.
+
+For me, sometimes it was just bothered me if some people's code were messy and hard to
+understand. I was always trying to fix it, but I asked them first before making any
+changes.  
